@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "dataSource.databaseName",
+      "type": "java.lang.String",
+      "description": "Description for dataSource.databaseName."
+    }
+  ]
+}

@@ -8,11 +8,11 @@
 		<version>2.7.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>sd</artifactId>
+	<groupId>ru.razymov</groupId>
+	<artifactId>catharsis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sd</name>
-	<description>Demo project for Spring Boot</description>
+	<name>catharsis</name>
+	<description>Catharsis project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

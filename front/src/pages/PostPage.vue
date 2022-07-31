@@ -20,22 +20,22 @@
       </q-card>
     </div>
   </q-page>
-  <div class="q-pa-lg flex flex-center">
-  </div>
 </template>
 
 <script>
 import {defineComponent, onMounted, ref} from 'vue'
 import {useQuasar} from 'quasar'
 import PostService from '../service/post.service'
+import {useRoute} from 'vue-router';
 
 export default defineComponent({
   name: 'PostPage',
   setup() {
 
+    const route = useRoute();
     const $q = useQuasar()
-    const id = ref($route.params.id)
-    const item = ref(null)
+    const id = ref(route.params.id)
+    const item = ref({})
     const category = ref(null)
 
     onMounted(() => {
@@ -57,8 +57,8 @@ export default defineComponent({
     })
 
     return {
-      item: {},
-      category: null
+      item,
+      category
     }
   }
 

@@ -6,7 +6,9 @@
 import {defineComponent, onMounted, ref} from 'vue'
 import {useQuasar} from 'quasar'
 import PostService from '../service/post.service'
-import PostsTmpl from "components/PostsTmpl";
+import PostsTmpl from 'components/PostsTmpl'
+import {cutLongString} from '../util/helper'
+
 
 export default defineComponent({
   name: 'PostsPage',
@@ -27,6 +29,8 @@ export default defineComponent({
         icon: 'report_problem'
       })
     }
+    const maxTextLength = 300
+
     const onLoad = (index, done) => {
 
       if (items.value !== [])
@@ -42,7 +46,7 @@ export default defineComponent({
           offset.value += 4
           done()
 
-        }, 2000)
+        }, 1000)
     }
 
     onMounted(() => {
@@ -50,6 +54,8 @@ export default defineComponent({
       PostService.getPosts(0, 4)
         .then((response) => {
           items.value = response.data
+          for (let i = 0; i < items.value.length; i++)
+            items.value[i].text = cutLongString(items.value[i].text, maxTextLength)
         })
         .catch(() => {
           notify($q)

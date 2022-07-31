@@ -7,10 +7,6 @@ class PostService {
     return api.get(API_POINT + `posts?offset=${offset}&limit=${limit}`)
   }
 
-  getPosts() {
-    return api.get(API_POINT + `posts`)
-  }
-
   getPostsByCategory(categoryId, offset, limit) {
     return api.get(API_POINT + `posts/categories/${categoryId}/?offset=${offset}&limit=${limit}`)
   }

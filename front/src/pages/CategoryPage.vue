@@ -47,7 +47,7 @@ export default defineComponent({
     })
 
     return {
-      items: []
+      items
     }
 
   }

@@ -3,11 +3,11 @@
     <q-infinite-scroll ref="infPost" :offset="250" @load="onLoad">
       <div
         v-if="items.length > 0"
-        class="q-pa-md q-gutter-md fit row wrap justify-start items-start content-start">
-        <q-card
+        class="q-pa-md q-col-gutter-lg row">
+        <div
           v-for="item in items"
           :key="item.id"
-          class="my-card col-5"
+          class="my-card col-lg-6 col-md-6 col-sm-12 col-xs-12"
         >
           <q-parallax
             :height="150"
@@ -32,7 +32,7 @@
             </q-btn>
             <q-btn color="primary" @click="$router.push('/post/' + item.id)">Читать id {{ item.id }}</q-btn>
           </q-card-actions>
-        </q-card>
+        </div>
       </div>
       <div
         v-else

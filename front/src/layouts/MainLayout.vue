@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHr lpR fFf">
     <q-header class="bg-blue-grey-10" elevated>
       <q-toolbar>
         <q-btn
@@ -41,6 +41,12 @@
           v-bind="link"
         />
       </q-list>
+    </q-drawer>
+    <q-drawer
+      bordered
+      show-if-above
+      side="right"
+    >
     </q-drawer>
 
     <q-page-container>

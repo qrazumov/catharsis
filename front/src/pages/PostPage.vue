@@ -3,7 +3,7 @@
     <div class="q-pa-md row items-start q-gutter-md">
       <q-card
         v-if="item != {}"
-        class="my-card col">
+        class="my-card">
         <q-card-section>
           <div class="text-h6">{{ item.name }}</div>
           <q-badge color="blue">

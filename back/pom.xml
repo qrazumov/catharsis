@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ru.razymov</groupId>
 	<artifactId>catharsis</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>catharsis</name>
 	<description>Catharsis project for Spring Boot</description>
 	<properties>

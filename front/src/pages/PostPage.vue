@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex-start">
     <div class="q-pa-md row items-start q-gutter-md">
-      <q-card
+      <dev
         v-if="item != {}"
         class="my-card">
         <q-card-section>
@@ -17,7 +17,7 @@
         <q-btn class="q-pa-md" flat>
           {{ item.createdAt }}
         </q-btn>
-      </q-card>
+      </dev>
     </div>
   </q-page>
 </template>

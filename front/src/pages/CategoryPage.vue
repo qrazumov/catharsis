@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="q-pa-md" style="max-width: 350px">
+    <div class="q-pa-md">
       <p>Категории</p>
       <q-list bordered separator>
         <q-item v-for="item in items" :key="item"
@@ -8,7 +8,7 @@
                 clickable
         >
           <q-item-section>
-            <q-btn color="primary" @click="$router.push('/category/' + item.id)">{{ item.name }}</q-btn>
+            <div color="primary" @click="$router.push('/category/' + item.id)">{{ item.name }}</div>
           </q-item-section>
         </q-item>
       </q-list>

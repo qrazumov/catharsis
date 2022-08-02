@@ -1,4 +1,7 @@
 <template>
+  <q-separator
+    v-if="separator"
+  />
   <q-item
     :href="link"
     clickable
@@ -38,11 +41,15 @@ export default defineComponent({
       type: String,
       default: '#'
     },
-
     icon: {
       type: String,
       default: ''
+    },
+    separator: {
+      type: Boolean,
+      default: false
     }
+
   }
 })
 </script>

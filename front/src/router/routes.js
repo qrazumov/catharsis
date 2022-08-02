@@ -9,7 +9,9 @@ const routes = [
       {name: 'categoryPage', path: '/category', component: () => import('pages/CategoryPage')},
       {name: 'postsByCategoryPage', path: '/category/:id', component: () => import('pages/PostsByCategoryPage')},
       {name: 'wMIPage', path: '/whoami', component: () => import('pages/WMIPage.vue')},
-      {name: 'mapPage', path: '/map', component: () => import('pages/MapPage.vue')}
+      {name: 'mapPage', path: '/map', component: () => import('pages/MapPage.vue')},
+
+      {name: 'avitoPage', path: '/project/avito', component: () => import('pages/AvitoPage.vue')},
     ]
   },
   {

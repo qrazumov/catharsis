@@ -77,6 +77,19 @@ const linksList = [
     caption: 'whoami',
     icon: 'account_circle',
     link: '#/whoami'
+  },
+  {
+    title: 'about me',
+    caption: 'whoami',
+    icon: 'account_circle',
+    link: '#/whoami'
+  },
+  {
+    title: 'авито парсер',
+    caption: 'авито парсер средних цен',
+    icon: 'code',
+    link: '#/project/avito',
+    separator: true
   }
 ]
 

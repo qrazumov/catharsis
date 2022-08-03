@@ -23,7 +23,7 @@
           </q-card-section>
 
           <q-card-section class="q-pt-none">
-            {{ item.text }}
+            <div v-html="item.text"></div>
           </q-card-section>
           <q-card-actions class="fit row wrap justify-end items-start content-start">
             <q-btn flat icon="event" round/>

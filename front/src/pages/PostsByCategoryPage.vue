@@ -8,6 +8,7 @@ import {useQuasar} from 'quasar'
 import PostService from '../service/post.service'
 import PostsTmpl from 'components/PostsTmpl'
 import {useRoute} from 'vue-router'
+import {cutLongString} from "src/util/helper";
 
 export default defineComponent({
   name: 'PostsByCategoryPage',
@@ -29,6 +30,8 @@ export default defineComponent({
         icon: 'report_problem'
       })
     }
+    const maxTextLength = 300
+
     const onLoad = (index, done) => {
       if (items.value !== [])
         setTimeout(() => {
@@ -51,6 +54,8 @@ export default defineComponent({
       PostService.getPostsByCategory(route.params.id, 0, 4)
         .then((response) => {
           items.value = response.data
+          for (let i = 0; i < items.value.length; i++)
+            items.value[i].text = cutLongString(items.value[i].text, maxTextLength)
         })
         .catch(() => {
           notify($q)

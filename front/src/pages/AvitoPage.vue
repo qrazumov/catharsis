@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="q-pa-md q-gutter-sm">
-      <q-banner class="bg-primary text-white">
+      <q-banner class="bg-light-blue-4 text-white">
         Авто.ру парсер: solaris
         <br/>
         урл:

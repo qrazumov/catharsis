@@ -33,9 +33,9 @@ public class AvitoService {
 
         ArrayList<Double> r = new ArrayList<>();
         Double result = null;
-        final String URL = "https://auto.ru/moskva/cars/hyundai/solaris/20162370/all/";
+        final String URL = "https://auto.ru/cars/vaz/granta/2015-year/7684102/all/";
         final String XPATH = "//*[@class='Link ListingItemPrice__link']";
-        final String GOOD = "solaris";
+        final String GOOD = "granta";
         final int DEEP = 3;
 
         SSLContext sc = SSLContext.getInstance("TLSv1.2");

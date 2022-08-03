@@ -17,7 +17,7 @@
           <span class="text-cyan-3">y</span>
           <span class="text-light-blue-3">m</span>
           <span class="text-deep-purple-3">o</span>
-          <span class="text-orange-3">v</span>.ru <span class="text-weight-thin text-caption">{ dev tech blog }</span>
+          <span class="text-orange-3">v</span>.tech <span class="text-weight-thin text-caption">{ dev blog }</span>
         </q-toolbar-title>
         <div>blog v{{ version }}</div>
       </q-toolbar>
@@ -79,16 +79,10 @@ const linksList = [
     link: '#/whoami'
   },
   {
-    title: 'about me',
-    caption: 'whoami',
-    icon: 'account_circle',
-    link: '#/whoami'
-  },
-  {
-    title: 'авито парсер',
-    caption: 'авито парсер средних цен',
+    title: 'парсер',
+    caption: 'парсер средних цен',
     icon: 'code',
-    link: '#/project/avito',
+    link: '#/project/parser',
     separator: true
   }
 ]

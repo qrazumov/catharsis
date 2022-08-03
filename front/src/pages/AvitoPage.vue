@@ -2,10 +2,10 @@
   <q-page>
     <div class="q-pa-md q-gutter-sm">
       <q-banner class="bg-primary text-white">
-        Авито парсер: видекарта nvidia gtx 1660 super
+        Авто.ру парсер: solaris
         <br/>
         урл:
-        https://www.avito.ru/moskva/tovary_dlya_kompyutera/komplektuyuschie/videokarty-ASgBAgICAkTGB~pm7gmmZw?cd=1&q=gtx+1660+super
+        https://auto.ru/moskva/cars/hyundai/solaris/20162370/all/
         <br/>
         Частота обновления статистики: 30 сек
         <br/>
@@ -17,6 +17,7 @@
         :chart-data="chartData"
         :chart-id="chartId"
         :chart-options="chartOptions"
+        height="200"
         class="col-9"
       />
     </div>
@@ -47,7 +48,7 @@ export default defineComponent({
       labels: [],
       datasets: [
         {
-          label: 'Авито парсер',
+          label: 'Авто.ру парсер',
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',
@@ -94,10 +95,12 @@ export default defineComponent({
         .then((response) => {
           const res = []
           const lb = []
-          const delta = Math.floor(response.data.length / 5)
+          const delta = Math.floor(response.data.length / 7)
           for (let i = 0; i < response.data.length; i += delta) {
             res.push(response.data[i].price)
-            lb.push(response.data[i].createdAt)
+            var date = new Date(response.data[i].createdAt);
+            var dt = date.getDay() + '.' + date.getMonth() + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+            lb.push(dt)
           }
           chartData.value.datasets[0].data = res
           chartData.value.labels = lb
@@ -120,7 +123,7 @@ export default defineComponent({
       },
       width: 300,
       height: 300,
-      chartId: 'Авито парсер'
+      chartId: 'Авто.ру парсер'
 
     }
 

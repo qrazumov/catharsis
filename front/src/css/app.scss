@@ -1,6 +1,15 @@
 // app global css in SCSS form
-#main-layout{
+#main-layout {
   height: 1000px;
-  width: 1300px;
-  margin: 0 200px;
+}
+@media (min-width: 850px) {
+  #main-layout {
+    height: 1000px;
+    width: auto;
+    margin: 0 15%;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

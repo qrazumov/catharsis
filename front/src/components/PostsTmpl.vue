@@ -36,11 +36,11 @@
       </div>
       <div
         v-else
-        class="q-pa-md q-gutter-md fit row wrap justify-start items-start content-start">
+        class="q-pa-md q-col-gutter-lg row">
         <q-card
           v-for="item in Array(4)"
           :key="item"
-          class="my-card col-5"
+          class="my-card col-lg-6 col-md-6 col-sm-12 col-xs-12"
         >
           <q-skeleton height="200px" square/>
           <q-card-section>

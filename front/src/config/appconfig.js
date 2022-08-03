@@ -1,4 +1,4 @@
-const GATE_WAY = '/'
+const GATE_WAY = 'http://localhost:8081'
 const API_POINT = '/api/v1/'
 
 module.exports = {

@@ -109,6 +109,21 @@
         ['viewsource']
       ]"
         />
+        <editor
+          api-key="ybri4nrrhkarhhvpii1q7y66tjjqgvd3ckhjyjx7rv1g2u9s"
+          ref="tiny"
+          v-model="content"
+          :init="{
+         height: 500,
+         menubar: false,
+         plugins: [
+           'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons'
+         ],
+         toolbar:
+           'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+       menubar: 'file edit view insert format tools table help',
+          }"
+        />
         <q-btn color="primary" icon="send" label="опубликовать" type="submit"/>
       </q-form>
     </div>
@@ -121,10 +136,14 @@
 import {defineComponent, onMounted, ref} from 'vue'
 import {useQuasar} from 'quasar'
 import PostService from "src/service/post.service";
+import Editor from '@tinymce/tinymce-vue'
 
 
 export default defineComponent({
   name: 'NotePage',
+  components: {
+    'editor': Editor
+  },
   setup() {
 
     const name = ref(null)
@@ -134,6 +153,7 @@ export default defineComponent({
     const $q = useQuasar()
     const qeditor = ref(
       '<pre></pre>')
+    const content = ref(null)
 
     const notify = (useQuasar) => {
       useQuasar.notify({
@@ -145,6 +165,8 @@ export default defineComponent({
     }
 
     const onSubmit = () => {
+
+      console.log(content.value)
 
       PostService.savePost({
         name: name.value,
@@ -190,7 +212,8 @@ export default defineComponent({
       preview,
       onSubmit,
       onReset,
-      qeditor
+      qeditor,
+      content,
     }
   }
 })

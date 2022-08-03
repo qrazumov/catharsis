@@ -55,7 +55,7 @@ export default defineComponent({
         .then((response) => {
           items.value = response.data
           for (let i = 0; i < items.value.length; i++)
-            items.value[i].text = cutLongString(items.value[i].text, maxTextLength)
+            items.value[i].text = cutLongString(items.value[i].text.replace(/<(.|\n)*?>/g, ''), maxTextLength)
         })
         .catch(() => {
           notify($q)

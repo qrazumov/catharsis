@@ -10,13 +10,15 @@
           <p>
             Категория: {{ item.name }}
           </p>
-          <q-btn
+          <a
             v-for="post in item.posts"
             :key="post"
-            class="row"
-            color="primary"
-            size="sm" @click="$router.push('/post/' + post.id)">[{{ post.id }}] {{ post.name }}
-          </q-btn>
+            class="row text-bold text-blue-grey-10"
+            size="sm"
+            :href="/post/ + post.id"
+          >
+            [{{ post.id }}] {{ post.name }}
+          </a>
         </div>
       </q-list>
     </div>

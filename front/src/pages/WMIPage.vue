@@ -1,29 +1,35 @@
 <template>
   <q-page class="flex-start q-pa-md">
-    <div class="q-pa-md q-gutter-sm">
-      <q-banner class="bg-grey-3" rounded>
-        <template v-slot:avatar>
-          <img
-            src="https://i.ibb.co/DkLFN7v/ami.jpg"
-            style="width: 200px;"
-          >
-        </template>
-        <p>Разумов Александр, программист</p>
-        <p>
-          <q-icon
-            color="primary"
-            name="contact_support" size="24px"
-          />
-          телега 89017039620
-        </p>
-        <p>
-          <q-icon
-            color="red"
-            name="code" size="24px"
-          />
-          гит github.com/qrazumov
-        </p>
-      </q-banner>
+    <div class="q-pa-md q-gutter-sm row justify-center">
+      <q-card class="my-card col-md-4 col-lg-3 col-xs-12" flat square>
+        <img src="http://razymov.tech:81/wl/?id=yq8q5lBEQBT2PbQAq6CO0m3gUaHQvSQ6&fmode=open">
+
+        <q-card-section>
+          <div class="text-h6">Разумов Александр, программист</div>
+          <div class="text-subtitle2">
+            <br />
+            <p>
+              <q-icon
+                color="primary"
+                name="send" size="24px"
+              />
+              телега t.me/qrazumov
+            </p>
+            <p>
+              <q-icon
+                color="red"
+                name="code" size="24px"
+              />
+              гит github.com/qrazumov
+            </p>
+          </div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          {{ lorem }}
+        </q-card-section>
+      </q-card>
+
     </div>
   </q-page>
   <div class="q-pa-lg flex flex-center">

@@ -5,7 +5,7 @@
         v-if="item != {}"
         class="my-card">
         <q-card-section>
-          <div class="text-h6">{{ item.name }}</div>
+          <h1 class="text-h6">{{ item.name }}</h1>
           <q-badge color="blue">
             {{ category }}
           </q-badge>

@@ -30,9 +30,9 @@ export default defineComponent({
       title: "category",
       titleTemplate: title => `${title} - razymov.tech`,
       meta: {
-        description: { name: 'description', content: "category" },
-        keywords: { name: 'keywords', content: "category" },
-        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+        description: {name: 'description', content: "category"},
+        keywords: {name: 'keywords', content: "category"},
+        equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
     })
 

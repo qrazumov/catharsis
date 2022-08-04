@@ -1,5 +1,5 @@
 <template>
-  <q-layout id="main-layout" view="lHr lpR fFf" container>
+  <q-layout id="main-layout" container view="lHr lpR fFf">
     <q-header class="bg-blue-grey-10" elevated>
       <q-toolbar>
         <q-btn
@@ -113,12 +113,12 @@ export default defineComponent({
       title: 'razymov.tech',
       titleTemplate: title => `${title} { dev blog }`,
       meta: {
-        description: { name: 'description', content: 'razymov.tech blog' },
-        keywords: { name: 'keywords', content: 'razymov.tech blog, dev' },
-        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+        description: {name: 'description', content: 'razymov.tech blog'},
+        keywords: {name: 'keywords', content: 'razymov.tech blog, dev'},
+        equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
     }
-   useMeta(metaData)
+    useMeta(metaData)
 
     return {
       essentialLinks: linksList, projects,

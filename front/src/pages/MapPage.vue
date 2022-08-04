@@ -38,9 +38,9 @@ export default defineComponent({
       title: "map",
       titleTemplate: title => `${title} - razymov.tech`,
       meta: {
-        description: { name: 'description', content: "map" },
-        keywords: { name: 'keywords', content: "map" },
-        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+        description: {name: 'description', content: "map"},
+        keywords: {name: 'keywords', content: "map"},
+        equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
     })
 

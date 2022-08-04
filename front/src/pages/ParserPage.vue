@@ -16,8 +16,8 @@
         :chart-data="itm"
         :chart-id="chartId"
         :chart-options="chartOptions"
-        height="200"
         class="col-9"
+        height="200"
       />
     </div>
   </q-page>
@@ -26,9 +26,8 @@
 <script>
 import {defineComponent, onMounted, ref} from 'vue'
 
-import {useQuasar} from "quasar"
+import {useMeta, useQuasar} from "quasar"
 import ParserService from "src/service/parser.service"
-import {useMeta} from 'quasar'
 import {Bar} from 'vue-chartjs'
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from 'chart.js'
 import lodash from 'lodash'
@@ -48,9 +47,9 @@ export default defineComponent({
       title: "parser project",
       titleTemplate: title => `${title} - razymov.tech`,
       meta: {
-        description: { name: 'description', content: "parser" },
-        keywords: { name: 'keywords', content: "parser" },
-        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+        description: {name: 'description', content: "parser"},
+        keywords: {name: 'keywords', content: "parser"},
+        equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
     })
 
@@ -66,7 +65,7 @@ export default defineComponent({
         'rgba(153, 102, 255, 0.2)',
         'rgba(201, 203, 207, 0.2)'
       ]
-        const borderColor = [
+      const borderColor = [
         'rgb(255, 99, 132)',
         'rgb(255, 159, 64)',
         'rgb(255, 205, 86)',
@@ -81,29 +80,29 @@ export default defineComponent({
 
           const r = lodash.groupBy(response.data, 'good')
           for (let key of Object.keys(r)) {
-              const res = []
-              const lb = []
-              const delta = Math.floor(r[key].length / 7)
-              for (let i = 0; i < r[key].length; i += delta) {
-                res.push(r[key][i].price)
-                let date = new Date(r[key][i].createdAt);
-                let dt = date.getDay() + '.' + date.getMonth() + '.' + date.getFullYear().toString().slice(2) + ' ' + date.getHours() + ':' + date.getMinutes();
-                lb.push(dt)
-              }
-              chartData.value.push({
-                labels: lb,
-                datasets: [
-                  {
-                    label: 'Авто.ру: средние цены на ' + r[key][0].good,
-                    backgroundColor: backgroundColor,
-                    borderColor: borderColor,
-                    borderWidth: 1,
-                    data: res
-                  }
-                ],
-                maintainAspectRatio: false,
+            const res = []
+            const lb = []
+            const delta = Math.floor(r[key].length / 7)
+            for (let i = 0; i < r[key].length; i += delta) {
+              res.push(r[key][i].price)
+              let date = new Date(r[key][i].createdAt);
+              let dt = date.getDay() + '.' + date.getMonth() + '.' + date.getFullYear().toString().slice(2) + ' ' + date.getHours() + ':' + date.getMinutes();
+              lb.push(dt)
+            }
+            chartData.value.push({
+              labels: lb,
+              datasets: [
+                {
+                  label: 'Авто.ру: средние цены на ' + r[key][0].good,
+                  backgroundColor: backgroundColor,
+                  borderColor: borderColor,
+                  borderWidth: 1,
+                  data: res
+                }
+              ],
+              maintainAspectRatio: false,
 
-              })
+            })
           }
         })
         .catch(() => {

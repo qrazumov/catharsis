@@ -62,9 +62,9 @@ export default defineComponent({
               title: items.value[0].category.name,
               titleTemplate: title => `${title} - razymov.tech`,
               meta: {
-                description: { name: 'description', content: items.value[0].category.name },
-                keywords: { name: 'keywords', content: items.value[0].category.name },
-                equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+                description: {name: 'description', content: items.value[0].category.name},
+                keywords: {name: 'keywords', content: items.value[0].category.name},
+                equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
               },
             }
           })

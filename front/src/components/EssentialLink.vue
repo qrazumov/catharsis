@@ -3,9 +3,9 @@
     v-if="separator"
   />
   <q-item
-    @click="$router.push(link)"
     clickable
     tag="a"
+    @click="$router.push(link)"
   >
     <q-item-section
       v-if="icon"

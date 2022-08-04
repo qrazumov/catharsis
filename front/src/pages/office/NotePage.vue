@@ -110,7 +110,6 @@
       ]"
         />
         <editor
-          api-key="ybri4nrrhkarhhvpii1q7y66tjjqgvd3ckhjyjx7rv1g2u9s"
           ref="tiny"
           v-model="content"
           :init="{
@@ -123,6 +122,7 @@
            'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
        menubar: 'file edit view insert format tools table help',
           }"
+          api-key="ybri4nrrhkarhhvpii1q7y66tjjqgvd3ckhjyjx7rv1g2u9s"
         />
         <q-btn color="primary" icon="send" label="опубликовать" type="submit"/>
       </q-form>

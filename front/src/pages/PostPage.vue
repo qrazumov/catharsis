@@ -23,11 +23,10 @@
 </template>
 
 <script>
-import {defineComponent, onMounted, ref} from 'vue'
-import {useQuasar} from 'quasar'
+import {defineComponent, ref} from 'vue'
+import {useMeta, useQuasar} from 'quasar'
 import PostService from '../service/post.service'
 import {useRoute} from 'vue-router'
-import {useMeta} from "quasar"
 
 export default defineComponent({
   name: 'PostPage',
@@ -42,36 +41,32 @@ export default defineComponent({
     const category = ref({})
     const title = ref(null)
 
-    onMounted(() => {
+    PostService.getPost(id.value)
+      .then((response) => {
+        item.value = response.data
+        category.value = response.data.category.name
+        title.value = item.value.name
 
-      PostService.getPost(id.value)
-        .then((response) => {
-          item.value = response.data
-          category.value = response.data.category.name
-          title.value = item.value.name
-
-          useMeta(() => {
-            return {
-              title: title.value,
-              titleTemplate: title => `${title} - razymov.tech`,
-              meta: {
-                description: { name: 'description', content: title.value },
-                keywords: { name: 'keywords', content: title.value },
-                equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
-              },
-            }
-          })
+        useMeta(() => {
+          return {
+            title: title.value,
+            titleTemplate: title => `${title} - razymov.tech`,
+            meta: {
+              description: {name: 'description', content: title.value},
+              keywords: {name: 'keywords', content: title.value},
+              equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
+            },
+          }
         })
-        .catch(() => {
-          $q.notify({
-            color: 'negative',
-            position: 'top',
-            message: 'Loading failed',
-            icon: 'report_problem'
-          })
+      })
+      .catch(() => {
+        $q.notify({
+          color: 'negative',
+          position: 'top',
+          message: 'Loading failed',
+          icon: 'report_problem'
         })
-
-    })
+      })
 
     return {
       item,

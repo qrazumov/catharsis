@@ -45,9 +45,9 @@ export default defineComponent({
 
       // meta tags
       meta: {
-        description: { name: 'description', content: 'Who am i' },
-        keywords: { name: 'keywords', content: 'Who am i' },
-        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+        description: {name: 'description', content: 'Who am i'},
+        keywords: {name: 'keywords', content: 'Who am i'},
+        equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
     }
     useMeta(metaData)

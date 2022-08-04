@@ -1,4 +1,4 @@
-package ru.razymov.catharsis;
+package tech.razymov.catharsis;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

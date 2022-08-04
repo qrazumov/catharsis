@@ -1,16 +1,14 @@
-package ru.razymov.catharsis.service;
+package tech.razymov.catharsis.service;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
-import org.apache.http.HttpHost;
-import org.apache.http.client.fluent.Request;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ru.razymov.catharsis.entity.AvitoEntity;
-import ru.razymov.catharsis.repo.AvitoRepositoryImpl;
+import tech.razymov.catharsis.entity.ParserEntity;
+import tech.razymov.catharsis.repo.ParserRepositoryImpl;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
@@ -21,12 +19,12 @@ import java.util.ArrayList;
 
 
 @Service
-public class AvitoService {
+public class ParserService {
 
     @Autowired
-    AvitoRepositoryImpl avitoRepository;
+    ParserRepositoryImpl parserRepository;
 
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelay = 43200000)
     public void getMedianPrice() throws NoSuchAlgorithmException, KeyManagementException, IOException {
 
         System.out.println("parsing start...");
@@ -78,11 +76,11 @@ public class AvitoService {
         System.out.println("median price: " + result);
 
         if(!Double.isNaN(result)){
-            var avitoEntity = new AvitoEntity();
-            avitoEntity.setPrice(result);
-            avitoEntity.setGood(GOOD);
-            avitoEntity.setQuery(null);
-            avitoRepository.save(avitoEntity);
+            var parserEntity = new ParserEntity();
+            parserEntity.setPrice(result);
+            parserEntity.setGood(GOOD);
+            parserEntity.setQuery(null);
+            parserRepository.save(parserEntity);
         }
 
 

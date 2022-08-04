@@ -1,4 +1,4 @@
-package ru.razymov.catharsis.entity;
+package tech.razymov.catharsis.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -15,7 +15,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class AvitoEntity {
+public class ParserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class AvitoEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AvitoEntity that = (AvitoEntity) o;
+        ParserEntity that = (ParserEntity) o;
         return id != null && Objects.equals(id, that.id);
     }
 

@@ -1,11 +1,11 @@
-package ru.razymov.catharsis.controller;
+package tech.razymov.catharsis.controller;
 
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.razymov.catharsis.entity.PostEntity;
-import ru.razymov.catharsis.service.PostService;
+import tech.razymov.catharsis.entity.PostEntity;
+import tech.razymov.catharsis.service.PostService;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package ru.razymov.catharsis;
+package tech.razymov.catharsis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

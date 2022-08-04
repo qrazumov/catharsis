@@ -1,9 +1,7 @@
-package ru.razymov.catharsis.repo;
+package tech.razymov.catharsis.repo;
 
 import org.springframework.data.repository.CrudRepository;
-import ru.razymov.catharsis.entity.CategoryEntity;
-
-import java.util.Optional;
+import tech.razymov.catharsis.entity.CategoryEntity;
 
 public interface CategoryRepository extends CrudRepository<CategoryEntity, Long> {
 

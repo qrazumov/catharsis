@@ -1,10 +1,10 @@
-package ru.razymov.catharsis.service;
+package tech.razymov.catharsis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.razymov.catharsis.entity.PostEntity;
-import ru.razymov.catharsis.repo.PostRepository;
-import ru.razymov.catharsis.repo.PostRepositoryImpl;
+import tech.razymov.catharsis.entity.PostEntity;
+import tech.razymov.catharsis.repo.PostRepository;
+import tech.razymov.catharsis.repo.PostRepositoryImpl;
 
 import java.util.List;
 import java.util.Optional;

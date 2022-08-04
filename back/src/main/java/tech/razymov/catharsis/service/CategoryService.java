@@ -1,9 +1,9 @@
-package ru.razymov.catharsis.service;
+package tech.razymov.catharsis.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.razymov.catharsis.entity.CategoryEntity;
-import ru.razymov.catharsis.repo.CategoryRepository;
+import tech.razymov.catharsis.entity.CategoryEntity;
+import tech.razymov.catharsis.repo.CategoryRepository;
 
 import java.util.Optional;
 

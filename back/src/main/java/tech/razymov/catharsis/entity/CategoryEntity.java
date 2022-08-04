@@ -1,4 +1,4 @@
-package ru.razymov.catharsis.entity;
+package tech.razymov.catharsis.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

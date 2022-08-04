@@ -1,4 +1,4 @@
-package ru.razymov.catharsis.entity;
+package tech.razymov.catharsis.entity;
 
 import lombok.Data;
 

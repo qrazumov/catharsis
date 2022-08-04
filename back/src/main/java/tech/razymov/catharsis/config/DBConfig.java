@@ -1,4 +1,4 @@
-package ru.razymov.catharsis.config;
+package tech.razymov.catharsis.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

@@ -11,7 +11,7 @@ const routes = [
       {name: 'wMIPage', path: '/whoami', component: () => import('pages/WMIPage.vue')},
       {name: 'mapPage', path: '/map', component: () => import('pages/MapPage.vue')},
 
-      {name: 'avitoPage', path: '/project/parser', component: () => import('pages/AvitoPage.vue')},
+      {name: 'parserPage', path: '/project/parser', component: () => import('pages/ParserPage')},
     ]
   },
   {

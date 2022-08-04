@@ -1,7 +1,7 @@
-package ru.razymov.catharsis.repo;
+package tech.razymov.catharsis.repo;
 
 import org.springframework.stereotype.Repository;
-import ru.razymov.catharsis.entity.PostEntity;
+import tech.razymov.catharsis.entity.PostEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

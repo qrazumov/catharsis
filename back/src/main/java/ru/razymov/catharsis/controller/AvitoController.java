@@ -14,7 +14,6 @@ import ru.razymov.catharsis.service.CategoryService;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("api/v1/avito")
 public class AvitoController {
 

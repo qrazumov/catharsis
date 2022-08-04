@@ -85,7 +85,7 @@ module.exports = configure(function (ctx) {
       server: {
         type: 'http'
       },
-      port: 8080,
+      port: 8181,
       open: true // opens browser window automatically
     },
 
@@ -107,7 +107,8 @@ module.exports = configure(function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Meta'
       ]
     },
 

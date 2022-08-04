@@ -6,7 +6,7 @@ const routes = [
     children: [
       {name: 'postsPage', path: '', component: () => import('pages/PostsPage')},
       {name: 'postPage', path: '/post/:id', component: () => import('pages/PostPage.vue')},
-      {name: 'categoryPage', path: '/category', component: () => import('pages/CategoryPage')},
+      {name: 'categoryPage', path: 'category', component: () => import('pages/CategoryPage')},
       {name: 'postsByCategoryPage', path: '/category/:id', component: () => import('pages/PostsByCategoryPage')},
       {name: 'wMIPage', path: '/whoami', component: () => import('pages/WMIPage.vue')},
       {name: 'mapPage', path: '/map', component: () => import('pages/MapPage.vue')},

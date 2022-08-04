@@ -25,7 +25,7 @@
 
 <script>
 import {defineComponent, onMounted, ref} from 'vue'
-import {useQuasar} from 'quasar'
+import {useMeta, useQuasar} from 'quasar'
 import PostService from '../service/post.service'
 
 export default defineComponent({
@@ -34,6 +34,15 @@ export default defineComponent({
 
     const items = ref(null)
     const $q = useQuasar()
+    useMeta({
+      title: "map",
+      titleTemplate: title => `${title} - razymov.tech`,
+      meta: {
+        description: { name: 'description', content: "map" },
+        keywords: { name: 'keywords', content: "map" },
+        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+      },
+    })
 
     onMounted(() => {
 

@@ -40,6 +40,16 @@
           :key="link.title"
           v-bind="link"
         />
+        <q-item-label
+          header
+        >
+          проекты
+        </q-item-label>
+        <EssentialLink
+          v-for="link in projects"
+          :key="link.title"
+          v-bind="link"
+        />
       </q-list>
     </q-drawer>
     <q-page-container>
@@ -51,7 +61,8 @@
 <script>
 import {defineComponent, ref} from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
-import packageInfo from "../../package.json";
+import packageInfo from "../../package.json"
+import {useMeta} from "quasar"
 
 const linksList = [
   {
@@ -64,27 +75,29 @@ const linksList = [
     title: 'category',
     caption: 'blog store',
     icon: 'data_object',
-    link: '#/category'
+    link: '/category'
   },
   {
     title: 'map',
     caption: 'map site',
     icon: 'menu_book',
-    link: '#/map'
+    link: '/map'
   },
   {
     title: 'about me',
     caption: 'whoami',
     icon: 'account_circle',
-    link: '#/whoami'
+    link: '/whoami'
   },
+]
+const projects = [
   {
     title: 'парсер',
     caption: 'парсер средних цен',
     icon: 'code',
-    link: '#/project/parser',
-    separator: true
+    link: '/project/parser'
   }
+
 ]
 
 export default defineComponent({
@@ -96,9 +109,19 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false)
+    const metaData = {
+      title: 'razymov.tech',
+      titleTemplate: title => `${title} { dev blog }`,
+      meta: {
+        description: { name: 'description', content: 'razymov.tech blog' },
+        keywords: { name: 'keywords', content: 'razymov.tech blog, dev' },
+        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+      },
+    }
+   useMeta(metaData)
 
     return {
-      essentialLinks: linksList,
+      essentialLinks: linksList, projects,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value

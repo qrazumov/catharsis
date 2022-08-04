@@ -27,9 +27,9 @@
 <script>
 import {defineComponent, onMounted, ref} from 'vue'
 
-import {useQuasar} from "quasar";
-import AvitoService from "src/service/avito.service";
-
+import {useQuasar} from "quasar"
+import AvitoService from "src/service/avito.service"
+import {useMeta} from 'quasar'
 import {Bar} from 'vue-chartjs'
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from 'chart.js'
 
@@ -44,7 +44,6 @@ export default defineComponent({
   setup() {
 
     const chartData = ref({
-
       labels: [],
       datasets: [
         {
@@ -84,7 +83,15 @@ export default defineComponent({
           }
         ]
       }
-
+    })
+    useMeta({
+      title: "parser project",
+      titleTemplate: title => `${title} - razymov.tech`,
+      meta: {
+        description: { name: 'description', content: "parser" },
+        keywords: { name: 'keywords', content: "parser" },
+        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+      },
     })
 
     onMounted(() => {

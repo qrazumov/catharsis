@@ -3,7 +3,7 @@
     v-if="separator"
   />
   <q-item
-    :href="link"
+    @click="$router.push(link)"
     clickable
     tag="a"
   >

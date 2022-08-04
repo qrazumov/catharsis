@@ -32,11 +32,26 @@
 
 <script>
 import {defineComponent} from 'vue'
-
+import {useMeta} from "quasar"
 
 export default defineComponent({
   name: 'WMIPage',
   setup() {
+    const metaData = {
+      // sets document title
+      title: 'Who am i',
+      // optional; sets final title as "Index Page - My Website", useful for multiple level meta
+      titleTemplate: title => `${title} - razymov.tech`,
+
+      // meta tags
+      meta: {
+        description: { name: 'description', content: 'Who am i' },
+        keywords: { name: 'keywords', content: 'Who am i' },
+        equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+      },
+    }
+    useMeta(metaData)
+
     return {}
   }
 })

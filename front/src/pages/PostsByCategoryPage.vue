@@ -4,7 +4,7 @@
 
 <script>
 import {defineComponent, onMounted, ref} from 'vue'
-import {useQuasar} from 'quasar'
+import {useMeta, useQuasar} from 'quasar'
 import PostService from '../service/post.service'
 import PostsTmpl from 'components/PostsTmpl'
 import {useRoute} from 'vue-router'
@@ -32,6 +32,7 @@ export default defineComponent({
     }
     const maxTextLength = 300
 
+
     const onLoad = (index, done) => {
       if (items.value !== [])
         setTimeout(() => {
@@ -56,6 +57,17 @@ export default defineComponent({
           items.value = response.data
           for (let i = 0; i < items.value.length; i++)
             items.value[i].text = cutLongString(items.value[i].text, maxTextLength)
+          useMeta(() => {
+            return {
+              title: items.value[0].category.name,
+              titleTemplate: title => `${title} - razymov.tech`,
+              meta: {
+                description: { name: 'description', content: items.value[0].category.name },
+                keywords: { name: 'keywords', content: items.value[0].category.name },
+                equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
+              },
+            }
+          })
         })
         .catch(() => {
           notify($q)

@@ -24,49 +24,39 @@
 
 <script>
 import {defineComponent, ref} from 'vue'
-import {useMeta, useQuasar} from 'quasar'
+import {useMeta} from 'quasar'
 import PostService from '../service/post.service'
-import {useRoute} from 'vue-router'
+import {usePostStore} from "stores/catharsis"
 
 export default defineComponent({
   name: 'PostPage',
+  async preFetch({store, currentRoute}) {
+    const myStore = usePostStore(store)
+    const id = currentRoute.params.id
+    let res = await PostService.getPost(id);
+    myStore.setPost(res.data)
+  },
+
   setup() {
 
-    const route = useRoute();
-    const $q = useQuasar()
-    const id = ref(route.params.id)
-    const item = ref({
-      createdAt: null
-    })
+    const myStore = usePostStore()
+    const item = ref({})
     const category = ref({})
     const title = ref(null)
 
-    PostService.getPost(id.value)
-      .then((response) => {
-        item.value = response.data
-        category.value = response.data.category.name
-        title.value = item.value.name
+    item.value = myStore.getPost
+    category.value = item.value.category.name
+    title.value = item.value.name
 
-        useMeta(() => {
-          return {
-            title: title.value,
-            titleTemplate: title => `${title} - razymov.tech`,
-            meta: {
-              description: {name: 'description', content: title.value},
-              keywords: {name: 'keywords', content: title.value},
-              equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
-            },
-          }
-        })
-      })
-      .catch(() => {
-        $q.notify({
-          color: 'negative',
-          position: 'top',
-          message: 'Loading failed',
-          icon: 'report_problem'
-        })
-      })
+    useMeta({
+      title: title.value,
+      titleTemplate: title => `${title} - razymov.tech`,
+      meta: {
+        description: {name: 'description', content: title.value},
+        keywords: {name: 'keywords', content: title.value},
+        equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
+      },
+    })
 
     return {
       item,

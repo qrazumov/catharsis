@@ -7,7 +7,7 @@
         <q-card-section>
           <div class="text-h6">Разумов Александр, программист</div>
           <div class="text-subtitle2">
-            <br />
+            <br/>
             <p>
               <q-icon
                 color="primary"

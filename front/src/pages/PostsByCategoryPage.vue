@@ -69,7 +69,7 @@ export default defineComponent({
     const postsStore = useCatharsisStore()
     items.value = postsStore.getData
 
-    if(items.value.length !== 0)
+    if (items.value.length !== 0)
       useMeta({
         title: items.value[0].category.name,
         titleTemplate: title => `${title} - razymov.tech`,

@@ -30,7 +30,7 @@
             <q-btn flat>
               {{ item.createdAt }}
             </q-btn>
-            <q-btn :href="/post/ + item.id" :label="'читать id ' + item.id" color="primary" />
+            <q-btn :href="/post/ + item.id" :label="'читать id ' + item.id" color="primary"/>
           </q-card-actions>
         </div>
       </div>

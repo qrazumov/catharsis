@@ -13,9 +13,9 @@
           <a
             v-for="post in item.posts"
             :key="post"
+            :href="/post/ + post.id"
             class="row text-bold text-blue-grey-10"
             size="sm"
-            :href="/post/ + post.id"
           >
             [{{ post.id }}] {{ post.name }}
           </a>

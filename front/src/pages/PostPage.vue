@@ -47,7 +47,6 @@ export default defineComponent({
     item.value = myStore.getData
     category.value = item.value.category.name
     title.value = item.value.name
-    console.log(item.value)
 
     useMeta({
       title: title.value,

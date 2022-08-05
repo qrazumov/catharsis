@@ -166,8 +166,6 @@ export default defineComponent({
 
     const onSubmit = () => {
 
-      console.log(content.value)
-
       PostService.savePost({
         name: name.value,
         text: qeditor.value,

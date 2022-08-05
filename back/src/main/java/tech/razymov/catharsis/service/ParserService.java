@@ -1,5 +1,7 @@
 package tech.razymov.catharsis.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.*;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
 import org.jsoup.Jsoup;
@@ -7,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import tech.razymov.catharsis.dto.Parser;
 import tech.razymov.catharsis.entity.ParserEntity;
 import tech.razymov.catharsis.repo.ParserRepositoryImpl;
 
@@ -16,6 +19,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -27,35 +31,54 @@ public class ParserService {
     @Scheduled(fixedDelay = 43200000)
     public void getMedianPrice() throws NoSuchAlgorithmException, KeyManagementException, IOException {
 
-        System.out.println("parsing start...");
+        final String URL = "https://auto.ru/cars/vaz/granta/2015-year/7684102/all/";
+        final String GOOD = "granta";
+        Double result = this.parser(URL);
 
+        if(!Double.isNaN(result)){
+            var parserEntity = new ParserEntity();
+            parserEntity.setPrice(result);
+            parserEntity.setGood(GOOD);
+            parserEntity.setQuery(null);
+            parserRepository.save(parserEntity);
+        }
+
+    }
+
+    public Double postParser(Parser parser) throws NoSuchAlgorithmException, KeyManagementException, IOException {
+
+        return this.parser(parser.getParserurl());
+
+    }
+
+    private Double parser(String url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+
+        System.out.println("parsing start...");
         ArrayList<Double> r = new ArrayList<>();
         Double result = null;
-        final String URL = "https://auto.ru/cars/vaz/granta/2015-year/7684102/all/";
         final String XPATH = "//*[@class='Link ListingItemPrice__link']";
-        final String GOOD = "granta";
         final int DEEP = 3;
-
-        SSLContext sc = SSLContext.getInstance("TLSv1.2");
-        sc.init(null, null, new SecureRandom());
 
         try {
             for (int i = 1; i <= DEEP; i++) {
-                String url = URL + "&page=" + i;
+
+                String strUrl = Pattern.matches(".+\\?.*", url)
+                        ? url + "&page=" + i
+                        : url + "?page=" + i;
+
                 Thread.sleep(this.rnd(200, 500));
-                Document doc = Jsoup.connect(URL)
-                        .header("user-agent",
-                                "Mozilla/4.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36")
-                        .header("accept-encoding", "gzip, deflate")
-                        .header("accept-language", "ru-RU,ru;q=0.9,en-US;q=0.8,en")
-                        .header("cookie", "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.8")
-                        .header("cache-control", "max-age=1")
-                        .header("cache-control", "max-age=1")
-                        .header("Sec-Fetch-Dest", "document")
-                        .header("Host", "auto.ru")
-                        .header("Cookie", "suid=74f5fc3024d1799f330ee537ee3d4e3f.da4f5992205c087961efed5cfd6de729; yandexuid=7665565041641840082; my=YwA%3D; _csrf_token=dc513ddf2293bb45361a19f6d5113547100ababf2231d6fd; autoru_sid=a%3Ag62e95fe22i59g1idnea05842o0flavh.6d9c61f17f258d2fb2a13c06b35dba87%7C1659461602131.604800.WUrJA3oaxGt9Gq_9WXALeA.aR4j0ndULHtBoEjSK0Jj7HqaQDoiEhml08sWt3IhUGo; autoruuid=g62e95fe22i59g1idnea05842o0flavh.6d9c61f17f258d2fb2a13c06b35dba87; from=direct; yuidlt=1; crookie=1GZ/EUMBE2pwPgf0c8qnSp0y6UC8Lc/ZwN6JnEEKxq/BzyZTHMjt6r3ZmhC5gVOCjA3VzF2G17WJLOd3YpIGLFOfMog=; cmtchd=MTY1OTQ2MTYwNTQ4NA==; gdpr=0; _ym_uid=1659461608386258863; Session_id=3:1659461607.5.0.1653069435886:R-vAsA:7a.1.2:1|736358018.0.2|61:10006362.34256.15rIGXYSPOHoWQij3y8agRgsFWE; yandex_login=qrazumov; ys=wprid.1657180325048897-10554661654222567995-vla1-5375-vla-l7-balancer-8080-BAL-8273#udn.cDpxcmF6dW1vdg%3D%3D#c_chck.1099440322; i=d5QyU4g6HP7zYds9ow0yB4SX3ZgBnvEUZXYgER6uLFpVF1oEBmi+SOx/cfskdMiq5IBJkPHqroY/sCBmIl1RJsdBbIk=; mda2_beacon=1659461607234; sso_status=sso.passport.yandex.ru:synchronized; _ym_isad=1; los=1; bltsr=1; _yasc=NWWS7pRv8WsEMDafz3fL03mDU+L80EGJGDLjvhOl3NpO/tiY; from_lifetime=1659464998177; _ym_d=1659464998")
-                        .sslSocketFactory(sc.getSocketFactory())
-                        .get();
+                Request request = new Request.Builder()
+                        .url(strUrl)
+                        .addHeader("Cookie", "_csrf_token=7a3910896f75656839c1c15471681d8a6c50011397dc06b0; autoru_sid=a%3Ag62ed67762e4s1ptabki836tr5svcgfd.ec8067a9b6fb8339e4c568c20d4c7e7e%7C1659725686538.604800.mi9wGGzW42s4gU6qfzzqlA.ChkAyoS6jhDBFomMP28CxjFZejUeu-jHV7jmTM3lby8; autoruuid=g62ed67762e4s1ptabki836tr5svcgfd.ec8067a9b6fb8339e4c568c20d4c7e7e; suid=1e12e09e6a04707122388ef5c70db62c.5ef079db81de85eac64c2ee21db472d4; from=direct; _yasc=w1Th9qi6i4VTCzVWGaXOcb5uRwUsVIl40X4BkKXdyc1MhL1j; yuidlt=1; yandexuid=4007520841659725686; gdpr=0; _ym_uid=1659725689346542657; _ym_visorc=b; spravka=dD0xNjU5NzI1NzAwO2k9MTc2LjE5Mi4yMzUuNzE7RD02RTJFMjMwRDVEN0ZENTdGN0E5MTMzNzE0RjY3ODVDMUIyNUM4NjY3NTBGMjVCQTIyRjkzQUZFRjgyQkU5NEFDOTU3MjUwQTg7dT0xNjU5NzI1NzAwNjc3MDMzOTM0O2g9NzM2OTkwMGQwMDkwOGI3MmMyNjQ2ZDIxY2Y5ODM1MzI=; sso_status=sso.passport.yandex.ru:synchronized_no_beacon; _ym_isad=2; from_lifetime=1659725719783; _ym_d=1659725719; cycada=Nr8bqWjRgreuG9rVndoXM7GAgdnVPzztRIcNjrObkiE=; _yasc=unmBRxl+UYMvuhDeprjWYVaNAlL+5VHzgD1+ldnf17EzZd/J; _ym_d=1659726211; _ym_uid=1659725689346542657; from=direct; from_lifetime=1659726211867; spravka=dD0xNjI4MTg5OTIwO2k9MTc2LjE5Mi4yMzUuNzE7RD1DOUFCRjgxQzhERkFFRjU2NDJENzhERjUzQTJDOUY1OTJGQTNENzRERkUxREU1RjFFNjBDQ0VBRTZFNDJBMjZDNTczRTQ1RTk7dT0xNjI4MTg5OTIwMTI2OTQ0Nzc0O2g9MzJhYzdkYTJlMjFlMmJkMTQ0YjExN2EwODU1MzViNWM=")
+                        .build();
+                Response response = client.newCall(request).execute();
+                String o = response.body().string();
+                Document doc = Jsoup.parse(o);
+
                 doc.selectXpath(XPATH).forEach(j -> {
                     double price = NumberUtils.toDouble(j.text().replaceAll("[^\\d]", ""));
                     if(price != 0)
@@ -66,23 +89,17 @@ public class ParserService {
             Median median = new Median();
             double[] arr = r.stream().filter(k -> k > 0).mapToDouble(d -> d).toArray();
             result = median.evaluate(arr);
+            if(Double.isNaN(result)){
+                throw new RuntimeException("parsing error");
+            }
 
         }
         catch (Exception e) {
             System.out.println("parse error:" + e.getMessage());
-            this.getMedianPrice();
-
+            return 0.0;
         }
         System.out.println("median price: " + result);
-
-        if(!Double.isNaN(result)){
-            var parserEntity = new ParserEntity();
-            parserEntity.setPrice(result);
-            parserEntity.setGood(GOOD);
-            parserEntity.setQuery(null);
-            parserRepository.save(parserEntity);
-        }
-
+        return result;
 
     }
 

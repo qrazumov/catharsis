@@ -8,6 +8,15 @@
         <br/>
         Глубина страниц: 3
       </q-banner>
+      <q-input v-model="parsurl" label="введите url для парсинга" />
+      <q-btn @click="greet" color="primary" label="узнать среднюю цену" size="md" />
+      <q-spinner-gears
+        v-if="visible"
+        color="secondary"
+        size="3em"
+      />
+      <br />
+      <q-badge class="text-weight-bolder text-h6" color="orange" text-color="black" :label="result" />
     </div>
     <div class="q-pa-md row justify-center">
       <Bar
@@ -114,6 +123,28 @@ export default defineComponent({
         })
       })
 
+    const parsurl = ref("https://auto.ru/cars/volvo/s40/4602593/all/?displacement_from=2400&displacement_to=2400&sort=cr_date-desc")
+    const result = ref("средняя цена")
+    const visible = ref(false)
+
+    const greet = () => {
+      visible.value = true
+      ParserService.postParser({parserurl: parsurl.value})
+        .then((response) => {
+          result.value = response.data + ' руб'
+          visible.value = false
+        })
+        .catch(() => {
+          visible.value = false
+          $q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Loading failed',
+            icon: 'report_problem'
+          })
+        })
+    }
+
     return {
       chartData,
       chartOptions: {
@@ -121,7 +152,11 @@ export default defineComponent({
       },
       width: 300,
       height: 300,
-      chartId: 'Авто.ру парсер'
+      chartId: 'Авто.ру парсер',
+      parsurl,
+      greet,
+      result,
+      visible
 
     }
 

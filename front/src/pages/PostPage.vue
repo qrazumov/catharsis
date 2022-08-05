@@ -15,7 +15,7 @@
         </q-card-section>
         <q-btn class="q-pa-md" flat icon="event" round/>
         <q-btn class="q-pa-md" flat>
-          <div v-html="item.createdAt"></div>
+          {{ item.createdAt }}
         </q-btn>
       </div>
     </div>
@@ -26,27 +26,28 @@
 import {defineComponent, ref} from 'vue'
 import {useMeta} from 'quasar'
 import PostService from '../service/post.service'
-import {usePostStore} from "stores/catharsis"
+import {useCatharsisStore} from "stores/catharsis"
 
 export default defineComponent({
   name: 'PostPage',
   async preFetch({store, currentRoute}) {
-    const myStore = usePostStore(store)
+    const myStore = useCatharsisStore(store)
     const id = currentRoute.params.id
     let res = await PostService.getPost(id);
-    myStore.setPost(res.data)
+    myStore.setData(res.data)
   },
 
   setup() {
 
-    const myStore = usePostStore()
-    const item = ref({})
-    const category = ref({})
+    const myStore = useCatharsisStore()
+    const item = ref(null)
+    const category = ref(null)
     const title = ref(null)
 
-    item.value = myStore.getPost
+    item.value = myStore.getData
     category.value = item.value.category.name
     title.value = item.value.name
+    console.log(item.value)
 
     useMeta({
       title: title.value,

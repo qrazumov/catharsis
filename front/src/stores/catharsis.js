@@ -1,18 +1,18 @@
 import {defineStore} from 'pinia';
 
-export const usePostStore = defineStore('post', {
+export const useCatharsisStore = defineStore('data', {
   state: () => ({
-    post: {}
+    data: {}
   }),
 
   getters: {
-    getPost: (state) => state.post,
+    getData: (state) => state.data,
 
   },
 
   actions: {
-    setPost(data) {
-      this.post = data
+    setData(data) {
+      this.data = data
     }
   }
 })

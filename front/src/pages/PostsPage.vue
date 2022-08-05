@@ -3,17 +3,25 @@
 </template>
 
 <script>
-import {defineComponent, onMounted, ref} from 'vue'
-import {useQuasar} from 'quasar'
+import {defineComponent, ref} from 'vue'
+import {useMeta, useQuasar} from 'quasar'
 import PostService from '../service/post.service'
 import PostsTmpl from 'components/PostsTmpl'
 import {cutLongString} from '../util/helper'
-
+import {useCatharsisStore} from "stores/catharsis"
 
 export default defineComponent({
   name: 'PostsPage',
   components: {
     PostsTmpl
+  },
+  async preFetch({store}) {
+    const myStore = useCatharsisStore(store)
+    const maxTextLength = 300
+    let res = await PostService.getPosts(0, 4)
+    for (let i = 0; i < res.data.length; i++)
+      res.data[i].text = cutLongString(res.data[i].text.replace(/<(.|\n)*?>/g, ''), maxTextLength)
+    myStore.setData(res.data)
   },
   setup() {
 
@@ -29,7 +37,6 @@ export default defineComponent({
         icon: 'report_problem'
       })
     }
-    const maxTextLength = 300
 
     const onLoad = (index, done) => {
 
@@ -49,17 +56,16 @@ export default defineComponent({
         }, 1000)
     }
 
-    onMounted(() => {
-
-      PostService.getPosts(0, 4)
-        .then((response) => {
-          items.value = response.data
-          for (let i = 0; i < items.value.length; i++)
-            items.value[i].text = cutLongString(items.value[i].text.replace(/<(.|\n)*?>/g, ''), maxTextLength)
-        })
-        .catch(() => {
-          notify($q)
-        })
+    const postsStore = useCatharsisStore()
+    items.value = postsStore.getData
+    useMeta({
+      title: items.value[0].category.name,
+      titleTemplate: title => `${title} - razymov.tech`,
+      meta: {
+        description: {name: 'description', content: items.value[0].category.name},
+        keywords: {name: 'keywords', content: items.value[0].category.name},
+        equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
+      },
     })
 
     return {

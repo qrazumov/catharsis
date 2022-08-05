@@ -26,16 +26,23 @@
 </template>
 
 <script>
-import {defineComponent, onMounted, ref} from 'vue'
-import {useMeta, useQuasar} from 'quasar'
+import {defineComponent, ref} from 'vue'
+import {useMeta} from 'quasar'
 import PostService from '../service/post.service'
+import {useCatharsisStore} from "stores/catharsis"
 
 export default defineComponent({
   name: 'MapPage',
+  async preFetch({store}) {
+    const myStore = useCatharsisStore(store)
+    let res = await PostService.getCategories()
+    myStore.setData(res.data)
+  },
   setup() {
 
     const items = ref(null)
-    const $q = useQuasar()
+    const myStore = useCatharsisStore()
+    items.value = myStore.getData
     useMeta({
       title: "map",
       titleTemplate: title => `${title} - razymov.tech`,
@@ -46,24 +53,6 @@ export default defineComponent({
       },
     })
 
-    onMounted(() => {
-
-      const $q = useQuasar()
-
-      PostService.getCategories()
-        .then((response) => {
-          items.value = response.data
-        })
-        .catch(() => {
-          $q.notify({
-            color: 'negative',
-            position: 'top',
-            message: 'Loading failed',
-            icon: 'report_problem'
-          })
-        })
-
-    })
 
     return {
       items

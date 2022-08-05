@@ -1,19 +1,37 @@
 <template>
-  <PostsTmpl ref="postsTmpl" :items="items" :on-load="onLoad"></PostsTmpl>
+  <PostsTmpl
+    v-if="items.length !== 0"
+    ref="postsTmpl" :items="items" :on-load="onLoad"></PostsTmpl>
+  <q-page v-else>
+    <div class="q-pa-md q-gutter-sm row justify-center">
+      <q-card class="my-card" flat square>
+        <h4>category is empty</h4>
+      </q-card>
+    </div>
+  </q-page>
 </template>
 
 <script>
-import {defineComponent, onMounted, ref} from 'vue'
+import {defineComponent, ref} from 'vue'
 import {useMeta, useQuasar} from 'quasar'
 import PostService from '../service/post.service'
 import PostsTmpl from 'components/PostsTmpl'
 import {useRoute} from 'vue-router'
 import {cutLongString} from "src/util/helper";
+import {useCatharsisStore} from "stores/catharsis"
 
 export default defineComponent({
   name: 'PostsByCategoryPage',
   components: {
     PostsTmpl
+  },
+  async preFetch({store, currentRoute}) {
+    const myStore = useCatharsisStore(store)
+    const maxTextLength = 300
+    let res = await PostService.getPostsByCategory(currentRoute.params.id, 0, 4)
+    for (let i = 0; i < res.data.length; i++)
+      res.data[i].text = cutLongString(res.data[i].text, maxTextLength)
+    myStore.setData(res.data)
   },
   setup() {
 
@@ -30,8 +48,6 @@ export default defineComponent({
         icon: 'report_problem'
       })
     }
-    const maxTextLength = 300
-
 
     const onLoad = (index, done) => {
       if (items.value !== [])
@@ -50,29 +66,19 @@ export default defineComponent({
         }, 2000)
     }
 
-    onMounted(() => {
+    const postsStore = useCatharsisStore()
+    items.value = postsStore.getData
 
-      PostService.getPostsByCategory(route.params.id, 0, 4)
-        .then((response) => {
-          items.value = response.data
-          for (let i = 0; i < items.value.length; i++)
-            items.value[i].text = cutLongString(items.value[i].text, maxTextLength)
-          useMeta(() => {
-            return {
-              title: items.value[0].category.name,
-              titleTemplate: title => `${title} - razymov.tech`,
-              meta: {
-                description: {name: 'description', content: items.value[0].category.name},
-                keywords: {name: 'keywords', content: items.value[0].category.name},
-                equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
-              },
-            }
-          })
-        })
-        .catch(() => {
-          notify($q)
-        })
-    })
+    if(items.value.length !== 0)
+      useMeta({
+        title: items.value[0].category.name,
+        titleTemplate: title => `${title} - razymov.tech`,
+        meta: {
+          description: {name: 'description', content: items.value[0].category.name},
+          keywords: {name: 'keywords', content: items.value[0].category.name},
+          equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
+        },
+      })
 
     return {
       items,

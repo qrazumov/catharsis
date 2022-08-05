@@ -14,7 +14,7 @@
             :src="item.img"
           />
           <q-card-section>
-            <div class="text-h6">{{ item.name }}</div>
+            <a :href="/post/ + item.id" class="text-h6">{{ item.name }}</a>
             <div class="text-subtitle2">
               <q-badge color="blue">
                 {{ item.category.name }}
@@ -30,7 +30,7 @@
             <q-btn flat>
               {{ item.createdAt }}
             </q-btn>
-            <q-btn :href="/post/ + item.id" :label="'читать id ' + item.id" color="primary"/>
+            <q-btn @click="$router.push('/post/' + item.id)" :label="'читать id ' + item.id" color="primary"/>
           </q-card-actions>
         </div>
       </div>

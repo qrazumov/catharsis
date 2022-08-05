@@ -81,7 +81,8 @@ const linksList = [
     title: 'map',
     caption: 'map site',
     icon: 'menu_book',
-    link: '/map'
+    link: '/map',
+    seolink: true
   },
   {
     title: 'about me',

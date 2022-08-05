@@ -4,7 +4,7 @@
 
 <script>
 import {defineComponent, ref} from 'vue'
-import {useMeta, useQuasar} from 'quasar'
+import {useQuasar} from 'quasar'
 import PostService from '../service/post.service'
 import PostsTmpl from 'components/PostsTmpl'
 import {cutLongString} from '../util/helper'
@@ -58,15 +58,6 @@ export default defineComponent({
 
     const postsStore = useCatharsisStore()
     items.value = postsStore.getData
-    useMeta({
-      title: items.value[0].category.name,
-      titleTemplate: title => `${title} - razymov.tech`,
-      meta: {
-        description: {name: 'description', content: items.value[0].category.name},
-        keywords: {name: 'keywords', content: items.value[0].category.name},
-        equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
-      },
-    })
 
     return {
       items,

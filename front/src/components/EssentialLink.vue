@@ -3,9 +3,28 @@
     v-if="separator"
   />
   <q-item
+    v-if="!seolink"
     clickable
     tag="a"
     @click="$router.push(link)"
+  >
+    <q-item-section
+      v-if="icon"
+      avatar
+    >
+      <q-icon :name="icon"/>
+    </q-item-section>
+
+    <q-item-section>
+      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label caption>{{ caption }}</q-item-label>
+    </q-item-section>
+  </q-item>
+  <q-item
+    v-else
+    clickable
+    tag="a"
+    :href="link"
   >
     <q-item-section
       v-if="icon"
@@ -46,6 +65,10 @@ export default defineComponent({
       default: ''
     },
     separator: {
+      type: Boolean,
+      default: false
+    },
+    seolink: {
       type: Boolean,
       default: false
     }

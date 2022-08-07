@@ -67,7 +67,7 @@ import {useMeta} from "quasar"
 const linksList = [
   {
     title: 'index',
-    caption: 'razymov.ru',
+    caption: 'razymov.tech',
     icon: 'exposure_zero',
     link: '/'
   },

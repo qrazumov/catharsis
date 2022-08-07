@@ -17,6 +17,7 @@ public class PostEntity {
     private CategoryEntity category;
     private String name;
     private String text;
+    private String video;
     private Date createdAt;
     private String img;
 

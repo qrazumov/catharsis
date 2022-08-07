@@ -12,6 +12,10 @@
         </q-card-section>
         <q-card-section class="q-pt-none">
           <div v-html="item.text"></div>
+          <q-video
+            :src="item.video"
+            :ratio="16/9"
+          />
         </q-card-section>
         <q-btn class="q-pa-md" flat icon="event" round/>
         <q-btn class="q-pa-md" flat>

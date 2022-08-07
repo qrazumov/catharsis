@@ -1,35 +1,55 @@
 <template>
   <q-page>
     <div class="q-pa-md q-gutter-sm">
-      <q-banner class="bg-light-blue-4 text-white">
-        Авто.ру парсер
-        <br/>
-        Частота обновления статистики: раз в 12 часов
-        <br/>
-        Глубина страниц: 3
-      </q-banner>
-      <q-input v-model="parsurl" label="введите url для парсинга"/>
-      <q-btn color="primary" label="узнать среднюю цену" size="md" @click="greet"/>
-      <q-spinner-gears
-        v-if="visible"
-        color="secondary"
-        size="3em"
-      />
-      <br/>
-      <q-badge :label="result" class="text-weight-bolder text-h6" color="orange" text-color="black"/>
+      <q-tabs
+        v-model="tab"
+        dense
+        class="text-grey"
+        active-color="primary"
+        indicator-color="primary"
+        align="justify"
+        narrow-indicator
+      >
+        <q-tab name="avg" label="средняя цена" />
+        <q-tab name="parser" label="парсер авто.ру" />
+      </q-tabs>
+      <q-separator />
+      <q-tab-panels v-model="tab" animated>
+        <q-tab-panel name="avg">
+          <div class="q-pa-md q-gutter-sm">
+            <q-input v-model="parsurl" label="введите url для парсинга"/>
+            <q-btn color="primary" label="узнать среднюю цену" size="md" @click="greet"/>
+          </div>
+          <q-inner-loading :showing="visible">
+            <q-spinner-gears size="50px" color="primary" />
+          </q-inner-loading>
+        </q-tab-panel>
+        <q-tab-panel name="parser">
+            <q-banner class="bg-light-blue-4 text-white">
+              Авто.ру парсер
+              <br/>
+              Частота обновления статистики: раз в 12 часов
+              <br/>
+              Глубина страниц: 3
+            </q-banner>
+            <Bar
+              v-for="itm in chartData"
+              :key="itm"
+              :chart-data="itm"
+              :chart-id="chartId"
+              :chart-options="chartOptions"
+              class="col-md-9 col-lg-9 col-sm-9 col-xs-12"
+              height="200"
+            />
+        </q-tab-panel>
+      </q-tab-panels>
     </div>
-    <div class="q-pa-md row justify-center">
-      <Bar
-        v-for="itm in chartData"
-        :key="itm"
-        :chart-data="itm"
-        :chart-id="chartId"
-        :chart-options="chartOptions"
-        class="col-md-9 col-lg-9 col-sm-9 col-xs-12"
-        height="200"
-      />
-    </div>
+
   </q-page>
+
+
+
+
 </template>
 
 <script>
@@ -133,6 +153,13 @@ export default defineComponent({
         .then((response) => {
           result.value = response.data + ' руб'
           visible.value = false
+          $q.dialog({
+            title: 'Средняя цена',
+            message: result.value
+          }).onOk(() => {
+          }).onCancel(() => {
+          }).onDismiss(() => {
+          })
         })
         .catch(() => {
           visible.value = false
@@ -156,7 +183,8 @@ export default defineComponent({
       parsurl,
       greet,
       result,
-      visible
+      visible,
+      tab: ref('mails')
 
     }
 

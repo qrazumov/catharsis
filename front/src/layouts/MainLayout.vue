@@ -114,8 +114,8 @@ export default defineComponent({
       title: 'razymov.tech',
       titleTemplate: title => `${title} { dev blog }`,
       meta: {
-        description: {name: 'description', content: 'razymov.tech blog'},
-        keywords: {name: 'keywords', content: 'razymov.tech blog, dev'},
+        description: {name: 'description', content: 'razymov.tech { dev blog }'},
+        keywords: {name: 'keywords', content: 'java, java spring, dev, front, docker'},
         equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
     }

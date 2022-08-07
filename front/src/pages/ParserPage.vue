@@ -184,7 +184,7 @@ export default defineComponent({
       greet,
       result,
       visible,
-      tab: ref('mails')
+      tab: ref('avg')
 
     }
 

@@ -1,7 +1,9 @@
 package tech.razymov.catharsis.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.*;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
 import org.jsoup.Jsoup;
@@ -13,11 +15,9 @@ import tech.razymov.catharsis.dto.Parser;
 import tech.razymov.catharsis.entity.ParserEntity;
 import tech.razymov.catharsis.repo.ParserRepositoryImpl;
 
-import javax.net.ssl.SSLContext;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -35,7 +35,7 @@ public class ParserService {
         final String GOOD = "granta";
         Double result = this.parser(URL);
 
-        if(!Double.isNaN(result)){
+        if (!Double.isNaN(result)) {
             var parserEntity = new ParserEntity();
             parserEntity.setPrice(result);
             parserEntity.setGood(GOOD);
@@ -81,20 +81,19 @@ public class ParserService {
 
                 doc.selectXpath(XPATH).forEach(j -> {
                     double price = NumberUtils.toDouble(j.text().replaceAll("[^\\d]", ""));
-                    if(price != 0)
+                    if (price != 0)
                         r.add(price);
-                });;
+                });
             }
 
             Median median = new Median();
             double[] arr = r.stream().filter(k -> k > 0).mapToDouble(d -> d).toArray();
             result = median.evaluate(arr);
-            if(Double.isNaN(result)){
+            if (Double.isNaN(result)) {
                 throw new RuntimeException("parsing error");
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("parse error:" + e.getMessage());
             return 0.0;
         }
@@ -103,8 +102,7 @@ public class ParserService {
 
     }
 
-    private int rnd(int min, int max)
-    {
+    private int rnd(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }

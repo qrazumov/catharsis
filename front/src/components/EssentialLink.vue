@@ -22,9 +22,9 @@
   </q-item>
   <q-item
     v-else
+    :href="link"
     clickable
     tag="a"
-    :href="link"
   >
     <q-item-section
       v-if="icon"

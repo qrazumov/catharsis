@@ -30,7 +30,7 @@
             <q-btn flat>
               {{ item.createdAt }}
             </q-btn>
-            <q-btn @click="$router.push('/post/' + item.id)" :label="'читать id ' + item.id" color="primary"/>
+            <q-btn :label="'читать id ' + item.id" color="primary" @click="$router.push('/post/' + item.id)"/>
           </q-card-actions>
         </div>
       </div>

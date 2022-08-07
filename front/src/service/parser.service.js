@@ -6,6 +6,7 @@ class ParserService {
   getParser() {
     return api.get(API_POINT + `parser`)
   }
+
   postParser(parserurl) {
     return api.post(API_POINT + `parser`, parserurl)
   }

@@ -8,15 +8,15 @@
         <br/>
         Глубина страниц: 3
       </q-banner>
-      <q-input v-model="parsurl" label="введите url для парсинга" />
-      <q-btn @click="greet" color="primary" label="узнать среднюю цену" size="md" />
+      <q-input v-model="parsurl" label="введите url для парсинга"/>
+      <q-btn color="primary" label="узнать среднюю цену" size="md" @click="greet"/>
       <q-spinner-gears
         v-if="visible"
         color="secondary"
         size="3em"
       />
-      <br />
-      <q-badge class="text-weight-bolder text-h6" color="orange" text-color="black" :label="result" />
+      <br/>
+      <q-badge :label="result" class="text-weight-bolder text-h6" color="orange" text-color="black"/>
     </div>
     <div class="q-pa-md row justify-center">
       <Bar

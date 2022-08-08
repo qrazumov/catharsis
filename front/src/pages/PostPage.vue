@@ -13,6 +13,7 @@
         <q-card-section class="q-pt-none">
           <div v-html="item.text"></div>
           <q-video
+            v-if="item.video"
             :src="item.video"
             :ratio="16/9"
           />

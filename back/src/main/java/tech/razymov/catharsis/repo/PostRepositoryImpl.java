@@ -17,10 +17,11 @@ public class PostRepositoryImpl {
 
     public List<PostEntity> getAll(Optional<Integer> offset, Optional<Integer> limit) {
 
-        StringBuilder q = new StringBuilder("SELECT * FROM posts");
+        StringBuilder q = new StringBuilder("SELECT * FROM posts ORDER BY id DESC");
 
         offset.ifPresent(integer -> q.append(" OFFSET ").append(integer));
         limit.ifPresent(integer -> q.append(" LIMIT ").append(integer));
+
 
         return entityManager.createNativeQuery(q.toString(),
                 PostEntity.class).getResultList();

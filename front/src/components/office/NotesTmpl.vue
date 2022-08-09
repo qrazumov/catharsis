@@ -27,23 +27,21 @@
         />
         <q-input
           @selectionChange="$emit('changeVideo', $event)"
-          :v-model="video"
+          :model-value="video"
           label="видео"
         />
         <editor
           @change="handleChange"
           v-if="visible"
           ref="tiny"
+          :initial-value="content"
           v-model="content"
           :init="{
-         height: 500,
-         menubar: false,
-         plugins: [
-           'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons'
-         ],
-         toolbar:
-           'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-       menubar: 'file edit view insert format tools table help',
+            height: 500,
+            menubar: false,
+            plugins: ['print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons'],
+            toolbar:'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+            menubar: 'file edit view insert format tools table help',
           }"
           api-key="ybri4nrrhkarhhvpii1q7y66tjjqgvd3ckhjyjx7rv1g2u9s"
         />
@@ -54,10 +52,8 @@
 </template>
 
 <script>
-import {defineComponent, ref, onBeforeMount} from 'vue'
+import {defineComponent, ref, onUpdated} from 'vue'
 import Editor from '@tinymce/tinymce-vue'
-import { toRefs, toRef } from 'vue'
-
 
 export default defineComponent({
   name: 'NotesTmpl',
@@ -100,16 +96,17 @@ export default defineComponent({
   },
   emits: ['changeName', 'changeCategory', 'changePreview', 'changeVideo', 'changeContent'],
 
-
   setup (props, { emit }) {
 
-    const content = toRef(props, 'cnt')
+    const content = ref(null)
+
+    onUpdated(() => {
+      content.value = props.cnt
+    })
 
     const handleChange = (event) => {
       emit("changeContent", content.value)
     }
-
-
 
     return {
       handleChange,

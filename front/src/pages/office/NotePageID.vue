@@ -34,7 +34,6 @@ export default defineComponent({
     const handleChangeName = (s) => {
       name.value = s
     }
-
     const handleChangeCategory = (s) => {
       category.value = lodash.groupBy(categories.value, 'id')[s][0]
     }
@@ -45,7 +44,6 @@ export default defineComponent({
       video.value = s
     }
     const handleChangeContent = (s) => {
-      console.log(s)
       content.value = s
     }
 
@@ -74,7 +72,7 @@ export default defineComponent({
       PostService.patchPost(route.params.id, {
         name: name.value,
         text: content.value,
-        category: {id: category.value},
+        category: category.value,
         img: preview.value,
         video: video.value
       })
@@ -100,7 +98,7 @@ export default defineComponent({
        .then((response) => {
          item.value = response.data
          name.value = item.value.name
-         category.value = item.value.category.id
+         category.value = item.value.category
          content.value = item.value.text
          preview.value = item.value.img
          video.value = item.value.video

@@ -41,7 +41,7 @@ public class PostController {
         postService.save(post);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping(path = "/{id}", consumes = "application/json")
     void patch(@PathVariable Long id, @RequestBody PostEntity post) {
         post.setId(id);
         postService.patch(post);

@@ -72,7 +72,7 @@ export default defineComponent({
       PostService.patchPost(route.params.id, {
         name: name.value,
         text: content.value,
-        category: category.value,
+        category: {id: category.value.id},
         img: preview.value,
         video: video.value
       })
@@ -98,7 +98,7 @@ export default defineComponent({
        .then((response) => {
          item.value = response.data
          name.value = item.value.name
-         category.value = item.value.category
+         category.value = {id: item.value.category.id, name: item.value.category.name}
          content.value = item.value.text
          preview.value = item.value.img
          video.value = item.value.video

@@ -71,7 +71,7 @@ export default defineComponent({
       PostService.savePost({
         name: name.value,
         text: content.value,
-        category: category.value,
+        category: {id: category.value.id},
         img: preview.value,
         video: video.value
       })

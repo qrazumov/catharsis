@@ -12,7 +12,7 @@
     :preview="preview"
     :video="video"
     :visible="visible"
-
+    :cnt="content"
   />
 </template>
 <script>
@@ -21,6 +21,7 @@ import {useQuasar} from 'quasar'
 import PostService from "src/service/post.service"
 import NotesTmpl from "components/office/NotesTmpl"
 import lodash from 'lodash'
+import { useRoute } from 'vue-router'
 
 
 export default defineComponent({
@@ -54,8 +55,10 @@ export default defineComponent({
     const preview = ref(null)
     const video = ref(null)
     const $q = useQuasar()
-    const content = ref("null")
+    const content = ref(null)
+    const item = ref(null)
     const visible = ref(false)
+    const route = useRoute()
 
     const notify = (useQuasar) => {
       useQuasar.notify({
@@ -68,10 +71,10 @@ export default defineComponent({
 
     const onSubmit = () => {
 
-      PostService.savePost({
+      PostService.patchPost(route.params.id, {
         name: name.value,
         text: content.value,
-        category: category.value,
+        category: {id: category.value},
         img: preview.value,
         video: video.value
       })
@@ -92,6 +95,19 @@ export default defineComponent({
     onMounted(() => {
 
       visible.value = true
+
+     PostService.getPost(route.params.id)
+       .then((response) => {
+         item.value = response.data
+         name.value = item.value.name
+         category.value = item.value.category.id
+         content.value = item.value.text
+         preview.value = item.value.img
+         video.value = item.value.video
+     })
+       .catch(() => {
+         notify($q)
+       })
 
       PostService.getCategories()
         .then((response) => {
@@ -115,7 +131,8 @@ export default defineComponent({
       handleChangeCategory,
       handleChangeVideo,
       handleChangePreview,
-      handleChangeContent
+      handleChangeContent,
+      item
     }
   }
 })

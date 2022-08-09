@@ -20,7 +20,7 @@ public class PostEntity {
     private String name;
     private String text;
     private String video;
-    private Date createdAt;
+    private Date createdAt = new Date();
     private String img;
 
 }

@@ -20,6 +20,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {name: 'notePage', path: 'note', component: () => import('pages/office/NotePage')},
+      {name: 'notePageID', path: 'note/:id', component: () => import('pages/office/NotePageID')},
     ]
   },
   // Always leave this as last one,

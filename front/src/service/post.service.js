@@ -14,6 +14,9 @@ class PostService {
   getPost(id) {
     return api.get(API_POINT + `posts/${id}`)
   }
+  patchPost(id, body) {
+    return api.patch(API_POINT + `posts/${id}`, body)
+  }
 
   getCategories() {
     return api.get(API_POINT + `categories`)

@@ -41,5 +41,11 @@ public class PostController {
         postService.save(post);
     }
 
+    @PatchMapping("/{id}")
+    void patch(@PathVariable Long id, @RequestBody PostEntity post) {
+        post.setId(id);
+        postService.patch(post);
+    }
+
 
 }

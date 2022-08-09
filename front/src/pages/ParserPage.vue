@@ -44,12 +44,7 @@
         </q-tab-panel>
       </q-tab-panels>
     </div>
-
   </q-page>
-
-
-
-
 </template>
 
 <script>

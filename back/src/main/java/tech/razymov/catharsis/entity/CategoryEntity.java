@@ -18,5 +18,5 @@ public class CategoryEntity {
     @JsonIgnoreProperties({"category"})
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<PostEntity> posts;
-    private Date createdAt;
+    private Date createdAt = new Date();
 }

@@ -26,7 +26,7 @@
           label="превью"
         />
         <q-input
-          @selectionChange="$emit('changeVideo', $event)"
+          @change="$emit('changeVideo', $event)"
           :model-value="video"
           label="видео"
         />
@@ -113,7 +113,6 @@ export default defineComponent({
       content
     }
   }
-
 
 })
 </script>

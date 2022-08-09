@@ -54,7 +54,7 @@ export default defineComponent({
     const preview = ref(null)
     const video = ref(null)
     const $q = useQuasar()
-    const content = ref("null")
+    const content = ref(null)
     const visible = ref(false)
 
     const notify = (useQuasar) => {

@@ -26,6 +26,11 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-  name: 'ErrorNotFound'
+  name: 'ErrorNotFound',
+  preFetch({ ssrContext }) {
+    if (ssrContext) {
+      return Promise.reject({ code: 404 });
+    }
+  },
 })
 </script>

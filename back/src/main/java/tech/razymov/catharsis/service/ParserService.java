@@ -1,13 +1,12 @@
 package tech.razymov.catharsis.service;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.osiris.headlessbrowser.HBrowser;
+import com.osiris.headlessbrowser.windows.PlaywrightWindow;
+import com.twocaptcha.TwoCaptcha;
+import com.twocaptcha.captcha.Normal;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -15,12 +14,13 @@ import tech.razymov.catharsis.dto.Parser;
 import tech.razymov.catharsis.entity.ParserEntity;
 import tech.razymov.catharsis.repo.ParserRepositoryImpl;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
+import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-
 
 @Service
 public class ParserService {
@@ -29,7 +29,7 @@ public class ParserService {
     ParserRepositoryImpl parserRepository;
 
     @Scheduled(fixedDelay = 43200000)
-    public void getMedianPrice() throws NoSuchAlgorithmException, KeyManagementException, IOException {
+    public void getMedianPrice() throws IOException {
 
         final String URL = "https://auto.ru/cars/vaz/granta/2015-year/7684102/all/";
         final String GOOD = "granta";
@@ -45,60 +45,103 @@ public class ParserService {
 
     }
 
-    public Double postParser(Parser parser) throws NoSuchAlgorithmException, KeyManagementException, IOException {
+    public Double postParser(Parser parser) throws IOException {
 
         return this.parser(parser.getParserurl());
 
     }
 
-    private Double parser(String url) throws NoSuchAlgorithmException, KeyManagementException, IOException {
-
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        MediaType mediaType = MediaType.parse("text/plain");
+    private Double parser(String url) throws IOException {
 
         System.out.println("parsing start...");
-        ArrayList<Double> r = new ArrayList<>();
+        ArrayList<Double> resultArray = new ArrayList<>();
         Double result = null;
         final String XPATH = "//*[@class='Link ListingItemPrice__link']";
         final int DEEP = 3;
+        final String X_PATH_HAS_CAPTCHA = "//*[@id=\"root\"]/div/div/form/div[2]/div/div/div[1]/input";
+        final String JS_CLICK_TO_NOT_ROBOT = "document.getElementsByClassName('CheckboxCaptcha-Button')[0].click();";
+        final String X_PATH_GET_CAPTCHA = "//*[@id=\"advanced-captcha-form\"]/div/div[1]/img";
+        final String CAPTCHA_API_KEY = "ace6f1d17044db697ba7ba01e5fb6534";
 
-        try {
+        HBrowser b = new HBrowser();
+        try (PlaywrightWindow w = b.openCustomWindow().enableJavaScript(true)
+                .headless(true).makeUndetectable(true).buildPlaywrightWindow()) {
+
             for (int i = 1; i <= DEEP; i++) {
-
                 String strUrl = Pattern.matches(".+\\?.*", url)
                         ? url + "&page=" + i
                         : url + "?page=" + i;
 
-                Thread.sleep(this.rnd(200, 500));
-                Request request = new Request.Builder()
-                        .url(strUrl)
-                        .addHeader("Cookie", "_csrf_token=7a3910896f75656839c1c15471681d8a6c50011397dc06b0; autoru_sid=a%3Ag62ed67762e4s1ptabki836tr5svcgfd.ec8067a9b6fb8339e4c568c20d4c7e7e%7C1659725686538.604800.mi9wGGzW42s4gU6qfzzqlA.ChkAyoS6jhDBFomMP28CxjFZejUeu-jHV7jmTM3lby8; autoruuid=g62ed67762e4s1ptabki836tr5svcgfd.ec8067a9b6fb8339e4c568c20d4c7e7e; suid=1e12e09e6a04707122388ef5c70db62c.5ef079db81de85eac64c2ee21db472d4; from=direct; _yasc=w1Th9qi6i4VTCzVWGaXOcb5uRwUsVIl40X4BkKXdyc1MhL1j; yuidlt=1; yandexuid=4007520841659725686; gdpr=0; _ym_uid=1659725689346542657; _ym_visorc=b; spravka=dD0xNjU5NzI1NzAwO2k9MTc2LjE5Mi4yMzUuNzE7RD02RTJFMjMwRDVEN0ZENTdGN0E5MTMzNzE0RjY3ODVDMUIyNUM4NjY3NTBGMjVCQTIyRjkzQUZFRjgyQkU5NEFDOTU3MjUwQTg7dT0xNjU5NzI1NzAwNjc3MDMzOTM0O2g9NzM2OTkwMGQwMDkwOGI3MmMyNjQ2ZDIxY2Y5ODM1MzI=; sso_status=sso.passport.yandex.ru:synchronized_no_beacon; _ym_isad=2; from_lifetime=1659725719783; _ym_d=1659725719; cycada=Nr8bqWjRgreuG9rVndoXM7GAgdnVPzztRIcNjrObkiE=; _yasc=unmBRxl+UYMvuhDeprjWYVaNAlL+5VHzgD1+ldnf17EzZd/J; _ym_d=1659726211; _ym_uid=1659725689346542657; from=direct; from_lifetime=1659726211867; spravka=dD0xNjI4MTg5OTIwO2k9MTc2LjE5Mi4yMzUuNzE7RD1DOUFCRjgxQzhERkFFRjU2NDJENzhERjUzQTJDOUY1OTJGQTNENzRERkUxREU1RjFFNjBDQ0VBRTZFNDJBMjZDNTczRTQ1RTk7dT0xNjI4MTg5OTIwMTI2OTQ0Nzc0O2g9MzJhYzdkYTJlMjFlMmJkMTQ0YjExN2EwODU1MzViNWM=")
-                        .build();
-                Response response = client.newCall(request).execute();
-                String o = response.body().string();
-                Document doc = Jsoup.parse(o);
+                Thread.sleep(this.rnd(100, 200));
+                PlaywrightWindow window = w.load(strUrl);
+                Thread.sleep(this.rnd(100, 200));
 
-                doc.selectXpath(XPATH).forEach(j -> {
-                    double price = NumberUtils.toDouble(j.text().replaceAll("[^\\d]", ""));
-                    if (price != 0)
-                        r.add(price);
-                });
+                int hasCaptcha = window.getBodyInnerHtml().selectXpath(X_PATH_HAS_CAPTCHA).size();
+                if (hasCaptcha == 0) {
+
+                    window.getBodyInnerHtml().selectXpath(XPATH).forEach(j -> {
+                        double price = NumberUtils.toDouble(j.text().replaceAll("[^\\d]", ""));
+                        if (price != 0) resultArray.add(price);
+                    });
+
+                } else {
+
+                    window.executeJS(JS_CLICK_TO_NOT_ROBOT);
+                    Thread.sleep(300);
+                    String captchaImg = window.getBodyInnerHtml()
+                            .selectXpath(X_PATH_GET_CAPTCHA).get(0).attr("src");
+
+                    try (InputStream in = URI.create(captchaImg).toURL().openStream()) {
+
+                        File tempFile = File.createTempFile("captcha", ".jpg");
+                        tempFile.deleteOnExit();
+                        FileOutputStream out = new FileOutputStream(tempFile);
+                        IOUtils.copy(in, out);
+
+                        TwoCaptcha solver = new TwoCaptcha(CAPTCHA_API_KEY);
+                        Normal captcha = new Normal();
+                        captcha.setFile(tempFile);
+
+                        captcha.setMinLen(4);
+                        captcha.setMaxLen(30);
+                        captcha.setCaseSensitive(true);
+                        captcha.setLang("ru");
+
+                        try {
+                            solver.solve(captcha);
+                            System.out.println("Captcha solved: " + captcha.getCode());
+                            window.executeJS("document.getElementById('xuniq-0-1').value='"
+                                    + captcha.getCode() + "'");
+                            return this.parser(url);
+
+                        } catch (Exception e) {
+                            System.out.println("Error occurred captcha solving: " + e.getMessage());
+                            return this.parser(url);
+                        }
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        return this.parser(url);
+                    }
+
+                }
+
             }
 
             Median median = new Median();
-            double[] arr = r.stream().filter(k -> k > 0).mapToDouble(d -> d).toArray();
+            double[] arr = resultArray.stream().filter(k -> k > 0).mapToDouble(d -> d).toArray();
             result = median.evaluate(arr);
             if (Double.isNaN(result)) {
-                throw new RuntimeException("parsing error");
+                throw new RuntimeException("double is NaN");
             }
 
+            System.out.println("median price: " + result);
+            return result;
+
         } catch (Exception e) {
-            System.out.println("parse error:" + e.getMessage());
-            return 0.0;
+            System.out.println(e.getMessage());
+            return this.parser(url);
         }
-        System.out.println("median price: " + result);
-        return result;
 
     }
 

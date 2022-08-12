@@ -77,6 +77,11 @@
 			<artifactId>HBrowser</artifactId>
 			<version>LATEST</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.2captcha</groupId>
+			<artifactId>2captcha-java</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

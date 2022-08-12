@@ -1,5 +1,5 @@
 <template>
-  <q-layout id="main-layout" container view="lHr lpR fFf">
+  <q-layout id="main-layout" container view="lHh Lpr lff">
     <q-header class="bg-blue-grey-10" elevated>
       <q-toolbar>
         <q-btn
@@ -117,6 +117,9 @@ export default defineComponent({
         description: {name: 'description', content: 'razymov.tech { dev blog }'},
         keywords: {name: 'keywords', content: 'java, java spring, dev, front, docker'},
         equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
+      },
+      link: {
+        image_x_icon: { rel: 'shortcut icon', href: 'http://razymov.tech/favicon.ico', type: 'image/x-icon' }
       },
     }
     useMeta(metaData)

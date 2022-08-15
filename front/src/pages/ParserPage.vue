@@ -146,7 +146,13 @@ export default defineComponent({
       visible.value = true
       ParserService.postParser({parserurl: parsurl.value})
         .then((response) => {
-          result.value = response.data + ' руб'
+
+          if(response.data.error){
+            result.value = "Ошибка парсинга"
+            return
+          }
+
+          result.value = response.data.result + ' руб'
           visible.value = false
           $q.dialog({
             title: 'Средняя цена',

@@ -4,14 +4,12 @@ package tech.razymov.catharsis.controller;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tech.razymov.catharsis.dto.Parser;
+import tech.razymov.catharsis.dto.ParserRequest;
 import tech.razymov.catharsis.entity.ParserEntity;
 import tech.razymov.catharsis.repo.ParserRepository;
 import tech.razymov.catharsis.service.ParserService;
 
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping("api/v1/parser")
@@ -28,8 +26,8 @@ public class ParserController {
         return parserRepository.findAllByOrderByIdDesc();
     }
 
-    @PostMapping
-    Double postParser(@RequestBody Parser parser) throws NoSuchAlgorithmException, IOException, KeyManagementException {
+    @PostMapping(consumes = "application/json")
+    Object postParser(@RequestBody ParserRequest parser) throws IOException{
         return parserService.postParser(parser);
     }
 

@@ -84,6 +84,7 @@ app.get('/', async (request, response) => {
 
     const url = request.query.q
     const deep = request.query.deep || 1
+    let title = null
 
     console.log('url: ' + url, 'deep: ' + deep)
 
@@ -101,19 +102,22 @@ app.get('/', async (request, response) => {
     const browser = await playwright.chromium.launch({
         headless: true // set this to true
     });
-    const page = await browser.newPage();
-    page.setDefaultTimeout(120000)
+
 
     async function mostActive(cnt) {
+        const page = await browser.newPage();
+        page.setDefaultTimeout(120000)
 
         if (cnt === 0) {
             console.log("парсинг закончен, закрываем страницу!")
+            await page.close()
             return
         }
 
         if (cnt > 10) {
             console.log("OOPS! max url loop count is 10")
             err.push("OOPS! max url loop count is 10")
+            await page.close()
             return
         }
         let cntBlock = null
@@ -130,7 +134,7 @@ app.get('/', async (request, response) => {
             console.log("пока нет новых кук!!!")
         }
 
-        console.log("начинаем парсинг " + cnt + " страницы!!!")
+        console.log("начинаем парсинг " + cnt + " страницы!!!", new Date())
         const isQ = /[?]/m.test(url)
 
         const fullUrl = isQ ? url + "&page=" + cnt : url + "?page=" + cnt
@@ -140,10 +144,12 @@ app.get('/', async (request, response) => {
         const needCaptcha = await page.locator('//*[@id="root"]/div/div/form/div[2]/div/div/div[1]/input').count()
         console.log("title: " + await page.title())
         if (needCaptcha === 0) {
+            title = await page.title()
             const hasContent = await page.locator('.ListingCars_outputType_list').count()
             if (hasContent === 0) {
                 console.log("OOPS! no content to parse, url: " + fullUrl)
-                err.push("OOPS! no content to parse, url: " + fullUrl)
+                await page.close()
+                await mostActive(--cnt)
                 return
             }
             console.log("Страница спаршена успешно без капчи!!!")
@@ -156,6 +162,7 @@ app.get('/', async (request, response) => {
             const ifTextCaptcha = await page.locator('//*[@id="advanced-captcha-form"]/div/div[1]/img').count();
             if (ifTextCaptcha === 0) {
                 console.log("captcha текстом не нужна!!!")
+                await page.close()
                 await mostActive(cnt)
             } else {
                 console.log("нужна некстовая капча!!!")
@@ -167,6 +174,7 @@ app.get('/', async (request, response) => {
                 await getTextByCaptchaImg(imgCaptcha).then(async val => {
                     if (val === 'ERROR_CAPTCHA_UNSOLVABLE') {
                         console.log("не удалось распознать капчу!!!")
+                        await page.close()
                         await mostActive(cnt)
                     }
                     await page.locator('#xuniq-0-1').fill(val);
@@ -177,6 +185,7 @@ app.get('/', async (request, response) => {
                     const ifCaptchaTrue = await page.locator('.ListingCars_outputType_list').count();
                     if (ifCaptchaTrue === 0) {
                         console.log("Неправильная капча!!!")
+                        await page.close()
                         await mostActive(cnt)
                     }
                     console.log("Капча успешно прошла!!!!!!")
@@ -202,6 +211,7 @@ app.get('/', async (request, response) => {
                 });
 
             allPricesGlobal.push(...cntBlock)
+            await page.close()
             await mostActive(--cnt)
         }
 
@@ -231,21 +241,22 @@ app.get('/', async (request, response) => {
         const avg = Math.round(allPricesGlobal.reduce((a, b) => a + b, 0) / allPricesGlobal.length) || 0;
         const min = Math.min.apply(Math, allPricesGlobal)
         const max = Math.max.apply(Math, allPricesGlobal)
+        let r = {
+            result: {
+                title: title,
+                all: allPricesGlobal,
+                cnt: allPricesGlobal.length,
+                median: result,
+                avg: avg,
+                min: min,
+                max: max,
+            },
+            error: null
+        }
+        console.log("SUCCESS!!! есть результат: " + JSON.stringify(r))
 
-        console.log("SUCCESS!!! есть результат: " + result)
-
-        await page.close()
         await browser.close()
-        response.send({
-                result: {
-                    median: result,
-                    avg: avg,
-                    min: min,
-                    max: max,
-                },
-                error: null
-            }
-        );
+        response.send(r);
     })
 
 });

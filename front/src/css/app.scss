@@ -1,4 +1,13 @@
 // app global css in SCSS form
+@font-face {
+  font-family: VisueltPro;
+  src: url(./fonts/VisueltPro-Regular.woff);
+}
+
+// declare a class which applies it
+* {
+  font-family: 'VisueltPro', serif;
+}
 #main-layout {
   height: 1000px;
 }

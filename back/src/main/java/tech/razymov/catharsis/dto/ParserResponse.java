@@ -2,6 +2,8 @@ package tech.razymov.catharsis.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ParserResponse {
     private Result result;
@@ -9,6 +11,9 @@ public class ParserResponse {
 
     @Data
     public static class Result{
+        private String title;
+        private List<Integer> all;
+        private int cnt;
         private int median;
         private int avg;
         private int min;

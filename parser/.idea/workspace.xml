@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cafa1ab4-269e-4094-9a81-1227bc26bb03" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../back/src/main/resources/log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../back/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../back/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../back/src/main/java/tech/razymov/catharsis/service/ParserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../back/src/main/java/tech/razymov/catharsis/service/ParserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/tech/razymov/catharsis/controller/ParserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/tech/razymov/catharsis/controller/ParserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/tech/razymov/catharsis/dto/ParserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/tech/razymov/catharsis/dto/ParserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/tech/razymov/catharsis/service/ParserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/tech/razymov/catharsis/service/ParserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/pages/ParserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/pages/ParserPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/captcha.png" beforeDir="false" afterPath="$PROJECT_DIR$/captcha.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +28,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -48,6 +44,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Razumov/IdeaProjects/catharsis/parser&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -75,6 +72,11 @@
       <workItem from="1660566417940" duration="2810000" />
       <workItem from="1660569281379" duration="10388000" />
       <workItem from="1660592734307" duration="17000" />
+      <workItem from="1660598027519" duration="645000" />
+      <workItem from="1660633097220" duration="36000" />
+      <workItem from="1660640965486" duration="836000" />
+      <workItem from="1660770055301" duration="524000" />
+      <workItem from="1660806224575" duration="1639000" />
     </task>
     <servers />
   </component>

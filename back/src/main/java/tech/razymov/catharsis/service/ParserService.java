@@ -24,13 +24,13 @@ public class ParserService {
 
     }
 
-    public Object postParser(ParserRequest parser) throws IOException {
+    public ParserResponse postParser(ParserRequest parser) throws IOException {
 
         return this.parser(parser.getParserurl());
 
     }
 
-    private Object parser(String url) throws IOException {
+    private ParserResponse parser(String url) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -44,10 +44,7 @@ public class ParserService {
         Request request = new Request.Builder().url(blogUrl).build();
         var response = client.newCall(request).execute().body();
 
-        ParserResponse res = mapper.readValue(response.string(), ParserResponse.class);
-
-        return res;
-
+        return mapper.readValue(response.string(), ParserResponse.class);
 
     }
 

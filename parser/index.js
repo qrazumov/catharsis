@@ -131,7 +131,9 @@ app.get('/', async (request, response) => {
         }
 
         console.log("начинаем парсинг " + cnt + " страницы!!!")
-        const fullUrl = url + "?page=" + cnt
+        const isQ = /[?]/m.test(url)
+
+        const fullUrl = isQ ? url + "&page=" + cnt : url + "?page=" + cnt
 
         await page.goto(fullUrl);
 
@@ -226,11 +228,21 @@ app.get('/', async (request, response) => {
         }
 
         const result = median(allPricesGlobal)
+        const avg = Math.round(allPricesGlobal.reduce((a, b) => a + b, 0) / allPricesGlobal.length) || 0;
+        const min = Math.min.apply(Math, allPricesGlobal)
+        const max = Math.max.apply(Math, allPricesGlobal)
+
         console.log("SUCCESS!!! есть результат: " + result)
 
         await page.close()
+        await browser.close()
         response.send({
-                result: result,
+                result: {
+                    median: result,
+                    avg: avg,
+                    min: min,
+                    max: max,
+                },
                 error: null
             }
         );

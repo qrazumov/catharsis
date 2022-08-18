@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.razymov.catharsis.dto.ParserRequest;
+import tech.razymov.catharsis.dto.ParserResponse;
 import tech.razymov.catharsis.entity.ParserEntity;
 import tech.razymov.catharsis.repo.ParserRepository;
 import tech.razymov.catharsis.service.ParserService;
@@ -27,7 +28,7 @@ public class ParserController {
     }
 
     @PostMapping(consumes = "application/json")
-    Object postParser(@RequestBody ParserRequest parser) throws IOException{
+    ParserResponse postParser(@RequestBody ParserRequest parser) throws IOException{
         return parserService.postParser(parser);
     }
 

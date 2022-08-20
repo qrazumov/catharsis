@@ -21,6 +21,10 @@ const routes = [
     children: [
       {name: 'notePage', path: 'note', component: () => import('pages/office/NotePage')},
       {name: 'notePageID', path: 'note/:id', component: () => import('pages/office/NotePageID')},
+      {name: 'loginPage', path: 'login', component: () => import('pages/office/LoginPage')},
+      {name: 'registerPage', path: 'register', component: () => import('pages/office/RegisterPage')},
+      {name: 'lkPage', path: 'id', component: () => import('pages/office/LKPage')},
+      {name: 'logoutPage', path: 'logout', component: () => import('pages/office/LogoutPage')},
     ]
   },
   // Always leave this as last one,

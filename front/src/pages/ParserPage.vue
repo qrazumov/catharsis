@@ -54,15 +54,26 @@
 </template>
 
 <script>
-import {defineComponent, ref} from 'vue'
+import {defineComponent, onMounted, ref} from 'vue'
 import {useMeta, useQuasar} from "quasar"
 import ParserService from "src/service/parser.service"
+import {useUserStore} from "stores/user"
+import {useRouter} from 'vue-router'
 
 export default defineComponent({
   name: 'ParserPage',
 
   setup() {
 
+    const $router = useRouter()
+
+    onMounted(() => {
+      if (!store.user) {
+        $router.push('/office/login');
+      }
+    })
+
+    const store = useUserStore()
     useMeta({
       title: "parser project",
       titleTemplate: title => `${title} - razymov.tech`,

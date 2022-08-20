@@ -73,7 +73,6 @@ const median = (values) => {
     return (values[half - 1] + values[half]) / 2.0;
 }
 
-// Use Node.js body parsing middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false,
@@ -100,7 +99,7 @@ app.get('/', async (request, response) => {
     let allPricesGlobal = []
 
     const browser = await playwright.chromium.launch({
-        headless: true // set this to true
+        headless: true
     });
 
 
@@ -129,14 +128,12 @@ app.get('/', async (request, response) => {
             await page.context().addCookies(cookieWithCaptcha)
             console.log("новые куки установлены!!!")
 
-
         } else {
             console.log("пока нет новых кук!!!")
         }
 
         console.log("начинаем парсинг " + cnt + " страницы!!!", new Date())
         const isQ = /[?]/m.test(url)
-
         const fullUrl = isQ ? url + "&page=" + cnt : url + "?page=" + cnt
 
         await page.goto(fullUrl);

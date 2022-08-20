@@ -109,7 +109,9 @@ module.exports = configure(function (ctx) {
       plugins: [
         'Notify',
         'Meta',
-        'Dialog'
+        'Dialog',
+        'LocalStorage',
+        'Cookies',
       ]
     },
 

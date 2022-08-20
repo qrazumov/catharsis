@@ -19,7 +19,12 @@
           <span class="text-deep-purple-3">o</span>
           <span class="text-orange-3">v</span>.tech <span class="text-weight-thin text-caption">{ dev blog }</span>
         </q-toolbar-title>
-        <div>blog v{{ version }}</div>
+        <div class="q-gutter-xs" >
+          <q-btn v-if="!store.user" to="/office/login" size="sm" color="deep-orange" icon="login" label="вход в лк" />
+          <q-btn v-if="store.user" to="/office/logout" size="sm" color="deep-orange" icon="logout" label="выход из лк" />
+          <q-btn v-if="store.user" to="/office/id" size="sm" color="light-blue" square icon="account_circle" />
+          <q-btn v-if="!store.user" to="/office/register" size="sm" color="green" icon="add" label="рег в лк" />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -59,10 +64,11 @@
 </template>
 
 <script>
-import {defineComponent, ref} from 'vue'
+import {defineComponent, ref, onMounted} from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import packageInfo from "../../package.json"
 import {useMeta} from "quasar"
+import {useUserStore} from "stores/user"
 
 const linksList = [
   {
@@ -123,6 +129,7 @@ export default defineComponent({
       },
     }
     useMeta(metaData)
+    const store = useUserStore()
 
     return {
       essentialLinks: linksList, projects,
@@ -130,7 +137,8 @@ export default defineComponent({
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
-      version: packageInfo.version
+      version: packageInfo.version,
+      store
     }
   }
 })

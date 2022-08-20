@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cafa1ab4-269e-4094-9a81-1227bc26bb03" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/../front/src/index.template.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/index.template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,10 +83,14 @@
       <workItem from="1660633097220" duration="36000" />
       <workItem from="1660640965486" duration="836000" />
       <workItem from="1660770055301" duration="524000" />
+<<<<<<< Updated upstream
       <workItem from="1660806224575" duration="1639000" />
       <workItem from="1660855079561" duration="3361000" />
       <workItem from="1660858799570" duration="18000" />
       <workItem from="1660858848067" duration="8000" />
+=======
+      <workItem from="1660806224575" duration="3149000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

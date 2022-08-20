@@ -1,5 +1,7 @@
 import {api} from "boot/axios";
 import {API_POINT} from '../config/appconfig'
+import authHeader from '../service/auth/auth-header';
+
 
 class ParserService {
 
@@ -8,7 +10,7 @@ class ParserService {
   }
 
   postParser(parserurl) {
-    return api.post(API_POINT + `parser`, parserurl)
+    return api.post(API_POINT + `parser`, parserurl, { headers: authHeader() })
   }
 }
 

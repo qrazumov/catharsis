@@ -19,27 +19,28 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Autowired
     private MyUserDetailsService userDetailsService;
-    @Autowired private JWTUtil jwtUtil;
+    @Autowired
+    private JWTUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-        if(authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")){
+        if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
             String jwt = authHeader.substring(7);
-            if(jwt == null || jwt.isBlank()){
+            if (jwt == null || jwt.isBlank()) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT Token in Bearer Header");
-            }else {
-                try{
+            } else {
+                try {
                     String email = jwtUtil.validateTokenAndRetrieveSubject(jwt);
                     UserDetails userDetails = userDetailsService.loadUserByUsername(email);
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken(email, userDetails.getPassword(), userDetails.getAuthorities());
-                    if(SecurityContextHolder.getContext().getAuthentication() == null){
+                    if (SecurityContextHolder.getContext().getAuthentication() == null) {
                         SecurityContextHolder.getContext().setAuthentication(authToken);
                     }
-                }catch(JWTVerificationException exc){
+                } catch (JWTVerificationException exc) {
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JWT Token");
                 }
             }

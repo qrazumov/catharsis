@@ -10,7 +10,7 @@ public class ParserResponse {
     private String error;
 
     @Data
-    public static class Result{
+    public static class Result {
         private String title;
         private List<Integer> all;
         private int cnt;

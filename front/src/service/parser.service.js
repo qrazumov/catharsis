@@ -10,7 +10,7 @@ class ParserService {
   }
 
   postParser(parserurl) {
-    return api.post(API_POINT + `parser`, parserurl, { headers: authHeader() })
+    return api.post(API_POINT + `parser`, parserurl, {headers: authHeader()})
   }
 }
 

@@ -26,8 +26,7 @@ public class PostService {
         return postRepositoryImpl.findByCategoryId(categoryId, offset, limit);
     }
 
-    public void save(PostEntity post)
-    {
+    public void save(PostEntity post) {
         postRepositoryImpl.save(post);
     }
 

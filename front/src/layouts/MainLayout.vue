@@ -19,11 +19,11 @@
           <span class="text-deep-purple-3">o</span>
           <span class="text-orange-3">v</span>.tech <span class="text-weight-thin text-caption">{ dev blog }</span>
         </q-toolbar-title>
-        <div class="q-gutter-xs" >
-          <q-btn v-if="!store.user" to="/office/login" size="sm" color="deep-orange" icon="login" label="вход в лк" />
-          <q-btn v-if="store.user" to="/office/logout" size="sm" color="deep-orange" icon="logout" label="выход из лк" />
-          <q-btn v-if="store.user" to="/office/id" size="sm" color="light-blue" square icon="account_circle" />
-          <q-btn v-if="!store.user" to="/office/register" size="sm" color="green" icon="add" label="рег в лк" />
+        <div class="q-gutter-xs">
+          <q-btn v-if="!store.user" color="deep-orange" icon="login" label="вход в лк" size="sm" to="/office/login"/>
+          <q-btn v-if="store.user" color="deep-orange" icon="logout" label="выход из лк" size="sm" to="/office/logout"/>
+          <q-btn v-if="store.user" color="light-blue" icon="account_circle" size="sm" square to="/office/id"/>
+          <q-btn v-if="!store.user" color="green" icon="add" label="рег в лк" size="sm" to="/office/register"/>
         </div>
       </q-toolbar>
     </q-header>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import {defineComponent, ref, onMounted} from 'vue'
+import {defineComponent, ref} from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import packageInfo from "../../package.json"
 import {useMeta} from "quasar"
@@ -125,7 +125,7 @@ export default defineComponent({
         equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
       link: {
-        image_x_icon: { rel: 'shortcut icon', href: 'http://razymov.tech/favicon.ico', type: 'image/x-icon' }
+        image_x_icon: {rel: 'shortcut icon', href: 'http://razymov.tech/favicon.ico', type: 'image/x-icon'}
       },
     }
     useMeta(metaData)

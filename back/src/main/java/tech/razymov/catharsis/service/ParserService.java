@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import tech.razymov.catharsis.dto.ParserRequest;
 import tech.razymov.catharsis.dto.ParserResponse;
 import tech.razymov.catharsis.repo.ParserRepositoryImpl;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 

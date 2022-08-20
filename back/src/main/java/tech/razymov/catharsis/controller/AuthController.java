@@ -21,12 +21,15 @@ public class AuthController {
 
     @Autowired
     private UserRepo userRepo;
-    @Autowired private JWTUtil jwtUtil;
-    @Autowired private AuthenticationManager authManager;
-    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JWTUtil jwtUtil;
+    @Autowired
+    private AuthenticationManager authManager;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public Map<String, Object> registerHandler(@RequestBody User user){
+    public Map<String, Object> registerHandler(@RequestBody User user) {
         String encodedPass = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPass);
         user = userRepo.save(user);
@@ -35,7 +38,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, Object> loginHandler(@RequestBody LoginCredentials body){
+    public Map<String, Object> loginHandler(@RequestBody LoginCredentials body) {
         try {
             UsernamePasswordAuthenticationToken authInputToken =
                     new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword());
@@ -45,7 +48,7 @@ public class AuthController {
             String token = jwtUtil.generateToken(body.getEmail());
 
             return Collections.singletonMap("jwt-token", token);
-        }catch (AuthenticationException authExc){
+        } catch (AuthenticationException authExc) {
             throw new RuntimeException("Invalid Login Credentials");
         }
     }

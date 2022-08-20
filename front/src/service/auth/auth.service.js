@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {useUserStore} from "stores/user"
-import {GATE_WAY, API_AUTH} from "src/config/appconfig"
+import {API_AUTH, GATE_WAY} from "src/config/appconfig"
 
 const API_URL_LOGIN = GATE_WAY + API_AUTH + 'login'
 const API_URL_REGISTER = GATE_WAY + API_AUTH + 'register'

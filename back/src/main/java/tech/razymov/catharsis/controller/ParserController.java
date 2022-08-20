@@ -28,7 +28,7 @@ public class ParserController {
     }
 
     @PostMapping(consumes = "application/json")
-    ParserResponse postParser(@RequestBody ParserRequest parser) throws IOException{
+    ParserResponse postParser(@RequestBody ParserRequest parser) throws IOException {
         return parserService.postParser(parser);
     }
 

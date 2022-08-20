@@ -1,35 +1,35 @@
 <template>
-    <div class="q-pa-md row justify-center">
-      <div>
-        <h6>Вход в личный кабинет:</h6>
-        <q-form
-          @submit="onSubmit"
-          class="q-gutter-md col-4"
-        >
-          <q-input
-            type="email"
-            filled
-            v-model="user.username"
-            label="Почта *"
-            lazy-rules
-            :rules="[ val => val && val.length > 0 || 'Пожалуйста, введите почту']"
-          />
-          <q-input
-            filled
-            type="password"
-            v-model="user.password"
-            label="Пароль *"
-            lazy-rules
-            :rules="[
+  <div class="q-pa-md row justify-center">
+    <div>
+      <h6>Вход в личный кабинет:</h6>
+      <q-form
+        class="q-gutter-md col-4"
+        @submit="onSubmit"
+      >
+        <q-input
+          v-model="user.username"
+          :rules="[ val => val && val.length > 0 || 'Пожалуйста, введите почту']"
+          filled
+          label="Почта *"
+          lazy-rules
+          type="email"
+        />
+        <q-input
+          v-model="user.password"
+          :rules="[
           val => val !== null && val !== '' || 'Пожалуйста, введите пароль'
         ]"
-          />
-          <div>
-            <q-btn label="Вход" type="submit" color="primary"/>
-          </div>
-        </q-form>
-      </div>
+          filled
+          label="Пароль *"
+          lazy-rules
+          type="password"
+        />
+        <div>
+          <q-btn color="primary" label="Вход" type="submit"/>
+        </div>
+      </q-form>
     </div>
+  </div>
 </template>
 
 <script>
@@ -40,7 +40,7 @@ import {useRouter} from 'vue-router'
 
 export default defineComponent({
   name: 'LoginPage',
-  setup () {
+  setup() {
     const $q = useQuasar()
 
     const loading = ref(false)
@@ -57,7 +57,7 @@ export default defineComponent({
       loading,
       message,
       user,
-      onSubmit () {
+      onSubmit() {
 
         store.login(user.value).then(
           () => {

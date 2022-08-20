@@ -1,12 +1,12 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import AuthService from '../service/auth/auth.service'
 import {useUserStore} from "stores/user"
 
 const userStore = useUserStore()
 const user = userStore.user
 const initialState = user
-  ? { status: { loggedIn: true }, user }
-  : { status: { loggedIn: false }, user: null };
+  ? {status: {loggedIn: true}, user}
+  : {status: {loggedIn: false}, user: null};
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({

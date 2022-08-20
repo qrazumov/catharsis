@@ -1,23 +1,23 @@
 <template>
-    <div class="q-pa-md row">
-      <div>
-        <p class="text-h6">Личный кабинет</p>
-        <p>id: {{ id }}</p>
-        <p>email: {{ email }}</p>
-      </div>
+  <div class="q-pa-md row">
+    <div>
+      <p class="text-h6">Личный кабинет</p>
+      <p>id: {{ id }}</p>
+      <p>email: {{ email }}</p>
     </div>
+  </div>
 </template>
 
 <script>
 import {useQuasar} from "quasar"
-import {defineComponent, ref, onMounted} from "vue"
+import {defineComponent, onMounted, ref} from "vue"
 import {useUserStore} from "stores/user"
 import {useRouter} from 'vue-router'
 import UserService from "src/service/auth/user.service"
 
 export default defineComponent({
   name: 'LKPage',
-  setup () {
+  setup() {
     const $q = useQuasar()
     const store = useUserStore()
     const $router = useRouter()

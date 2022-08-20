@@ -1,17 +1,17 @@
 <template>
   <NotesTmpl
+    :categories="categories"
+    :category="category"
+    :name="name"
+    :on-submit="onSubmit"
+    :preview="preview"
+    :video="video"
+    :visible="visible"
     @change-name="handleChangeName"
     @change-category="handleChangeCategory"
     @change-preview="handleChangePreview"
     @change-video="handleChangeVideo"
     @change-content="handleChangeContent"
-    :name="name"
-    :on-submit="onSubmit"
-    :category="category"
-    :categories="categories"
-    :preview="preview"
-    :video="video"
-    :visible="visible"
 
   />
 </template>

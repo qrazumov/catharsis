@@ -16,7 +16,7 @@ public class UserController {
     private UserRepo userRepo;
 
     @GetMapping("/info")
-    public User getUserDetails(){
+    public User getUserDetails() {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepo.findByEmail(email).get();
     }

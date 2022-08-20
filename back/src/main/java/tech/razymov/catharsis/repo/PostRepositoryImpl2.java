@@ -13,11 +13,10 @@ import java.util.Optional;
 @Repository
 public class PostRepositoryImpl2 {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Autowired
     PostRepository postRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public List<PostEntity> getAll(Optional<Integer> offset, Optional<Integer> limit) {
 
@@ -56,20 +55,21 @@ public class PostRepositoryImpl2 {
         Optional<PostEntity> postEntity = postRepository.findById(post.getId());
 
         postEntity.ifPresent(i -> {
-            if(post.getName() != null)
+            if (post.getName() != null)
                 i.setName(post.getName());
-            if(post.getText() != null)
+            if (post.getText() != null)
                 i.setText(post.getText());
-            if(post.getImg() != null)
+            if (post.getImg() != null)
                 i.setImg(post.getImg());
-            if(post.getVideo() != null)
+            if (post.getVideo() != null)
                 i.setVideo(post.getVideo());
-            if(post.getCategory() != null)
+            if (post.getCategory() != null)
                 i.setCategory(post.getCategory());
             postRepository.save(i);
         });
 
     }
+
     public Optional<PostEntity> findById(Long id) {
         return postRepository.findById(id);
 

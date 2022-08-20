@@ -1,18 +1,18 @@
 <template>
   <NotesTmpl
+    :categories="categories"
+    :category="category"
+    :cnt="content"
+    :name="name"
+    :on-submit="onSubmit"
+    :preview="preview"
+    :video="video"
+    :visible="visible"
     @change-name="handleChangeName"
     @change-category="handleChangeCategory"
     @change-preview="handleChangePreview"
     @change-video="handleChangeVideo"
     @change-content="handleChangeContent"
-    :name="name"
-    :on-submit="onSubmit"
-    :category="category"
-    :categories="categories"
-    :preview="preview"
-    :video="video"
-    :visible="visible"
-    :cnt="content"
   />
 </template>
 <script>
@@ -21,7 +21,7 @@ import {useQuasar} from 'quasar'
 import PostService from "src/service/post.service"
 import NotesTmpl from "components/office/NotesTmpl"
 import lodash from 'lodash'
-import { useRoute } from 'vue-router'
+import {useRoute} from 'vue-router'
 
 
 export default defineComponent({
@@ -94,18 +94,18 @@ export default defineComponent({
 
       visible.value = true
 
-     PostService.getPost(route.params.id)
-       .then((response) => {
-         item.value = response.data
-         name.value = item.value.name
-         category.value = {id: item.value.category.id, name: item.value.category.name}
-         content.value = item.value.text
-         preview.value = item.value.img
-         video.value = item.value.video
-     })
-       .catch(() => {
-         notify($q)
-       })
+      PostService.getPost(route.params.id)
+        .then((response) => {
+          item.value = response.data
+          name.value = item.value.name
+          category.value = {id: item.value.category.id, name: item.value.category.name}
+          content.value = item.value.text
+          preview.value = item.value.img
+          video.value = item.value.video
+        })
+        .catch(() => {
+          notify($q)
+        })
 
       PostService.getCategories()
         .then((response) => {

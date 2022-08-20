@@ -21,8 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserRepo userRepo;
-    @Autowired private JWTFilter filter;
-    @Autowired private MyUserDetailsService uds;
+    @Autowired
+    private JWTFilter filter;
+    @Autowired
+    private MyUserDetailsService uds;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

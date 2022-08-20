@@ -44,7 +44,6 @@ export default defineComponent({
       video.value = s
     }
     const handleChangeContent = (s) => {
-      console.log(s)
       content.value = s
     }
 

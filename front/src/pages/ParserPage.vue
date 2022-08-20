@@ -14,6 +14,12 @@
     </q-tabs>
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="parser">
+        <q-banner class="bg-blue-1 ">
+          <span class="text-weight-bolder">ВНИМАНИЕ!</span> <br/>
+          парсер создан исключительно для образовательных и исследовательских целей. Запрещается его использование в коммерческих или иных целях, т.к. его работа
+          может создавать дополнительную нагрузку на сервера сайтов, которые парсит алгоритм
+        </q-banner>
+        <br />
         <q-table
           :columns="columns"
           :rows="rows"
@@ -84,7 +90,6 @@ export default defineComponent({
       },
     })
     const $q = useQuasar()
-    const parsURL = ref("https://auto.ru/cars/volkswagen/polo/20113124/all/")
     const result = ref("средняя цена")
     const visible = ref(false)
     const columns = [
@@ -96,7 +101,7 @@ export default defineComponent({
     ]
     const originalRows = [
       {
-        url: 'https://auto.ru/cars/volkswagen/polo/20113124/all/',
+        url: 'https://auto.ru/cars/hyundai/solaris/2015-year/20162370/all/?sort=cr_date-desc',
         median: '-',
         avg: '-',
         min: '-',
@@ -159,46 +164,8 @@ export default defineComponent({
       rows.value.push(row)
       loading.value = false
     }
-    const greet = () => {
-
-      visible.value = true
-      let startTime = performance.now()
-
-      ParserService.postParser({parserurl: parsURL.value})
-        .then((response) => {
-
-          if (response.data.error) {
-            result.value = "Ошибка парсинга"
-            return
-          }
-
-          var endTime = performance.now()
-          console.log(response.data.result)
-
-          result.value = JSON.stringify(response.data.result)
-          visible.value = false
-          $q.dialog({
-            title: `Средняя цена [${Math.round((endTime - startTime) / 1000)}s]`,
-            message: result.value
-          }).onOk(() => {
-          }).onCancel(() => {
-          }).onDismiss(() => {
-          })
-        })
-        .catch(() => {
-          visible.value = false
-          $q.notify({
-            color: 'negative',
-            position: 'top',
-            message: 'Loading failed',
-            icon: 'report_problem'
-          })
-        })
-    }
 
     return {
-      parsURL,
-      greet,
       result,
       visible,
       tab: ref('parser'),

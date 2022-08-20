@@ -64,7 +64,7 @@ export default defineComponent({
             $q.notify({
               color: 'green-4',
               textColor: 'white',
-              icon: 'cloud_done',
+              icon: 'done',
               message: 'Вы вошли в лк'
             })
             $router.push('/office/id')
@@ -73,8 +73,8 @@ export default defineComponent({
             $q.notify({
               color: 'negative',
               position: 'top',
-              message: 'Loading failed',
-              icon: 'ошибка входа'
+              message: 'ошибка входа',
+              icon: 'error'
             })
             loading.value = false;
             message.value =

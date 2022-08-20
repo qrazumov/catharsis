@@ -1,7 +1,8 @@
 import axios from 'axios';
 import authHeader from './auth-header';
+import {GATE_WAY} from "src/config/appconfig"
 
-const API_URL = 'http://localhost:8080/api/user/info';
+const API_URL = GATE_WAY + '/api/user/info';
 
 class UserService {
 

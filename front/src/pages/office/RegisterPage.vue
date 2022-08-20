@@ -66,7 +66,7 @@ export default defineComponent({
             $q.notify({
               color: 'green-4',
               textColor: 'white',
-              icon: 'cloud_done',
+              icon: 'done',
               message: 'Вы зарегистрировались в лк'
             })
           },
@@ -74,8 +74,8 @@ export default defineComponent({
             $q.notify({
               color: 'negative',
               position: 'top',
-              message: 'Loading failed',
-              icon: 'ошибка регистрации'
+              message: 'ошибка регистрации',
+              icon: 'error'
             })
             loading.value = false;
             message.value =
@@ -91,9 +91,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style>
-.q-card {
-  width: 360px;
-}
-</style>

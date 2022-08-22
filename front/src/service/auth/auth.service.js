@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {useUserStore} from "stores/user"
 import {API_AUTH, GATE_WAY} from "src/config/appconfig"
+import { Cookies } from 'quasar'
+
 
 const API_URL_LOGIN = GATE_WAY + API_AUTH + 'login'
 const API_URL_REGISTER = GATE_WAY + API_AUTH + 'register'
@@ -15,7 +17,10 @@ class AuthService {
       .then(response => {
         if (response.data["jwt-token"]) {
           const store = useUserStore()
-          store.user = JSON.stringify(response.data)
+          Cookies.set('user', JSON.stringify(response.data), {
+            expires: '60m'
+          })
+          store.isAuth = true
         }
 
         return response.data;
@@ -24,7 +29,8 @@ class AuthService {
 
   logout() {
     const store = useUserStore()
-    store.user = null
+    store.isAuth = false
+    Cookies.remove('user')
   }
 
   register(user) {
@@ -34,7 +40,10 @@ class AuthService {
     }).then(response => {
       if (response.data["jwt-token"]) {
         const store = useUserStore()
-        store.user = JSON.stringify(response.data)
+        Cookies.set('user', JSON.stringify(response.data), {
+          expires: 10
+        })
+        store.isAuth = true
       }
 
       return response.data;

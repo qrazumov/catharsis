@@ -26,7 +26,7 @@ export default defineComponent({
 
 
     onMounted(() => {
-      if (!store.user) {
+      if (!store.isAuth) {
         $router.push('/office/login');
       }
     })

@@ -1,5 +1,6 @@
-import {api} from "boot/axios";
-import {API_POINT} from '../config/appconfig'
+import {api} from "boot/axios"
+import {API_POINT} from 'src/config/appconfig'
+import authHeader from 'src/service/auth/auth-header'
 
 class PostService {
 
@@ -16,7 +17,7 @@ class PostService {
   }
 
   patchPost(id, body) {
-    return api.patch(API_POINT + `posts/${id}`, body)
+    return api.patch(API_POINT + `posts/${id}`, body, {headers: authHeader()})
   }
 
   getCategories() {
@@ -24,7 +25,7 @@ class PostService {
   }
 
   savePost(body) {
-    return api.post(API_POINT + `posts`, body)
+    return api.post(API_POINT + `posts`, body, {headers: authHeader()})
   }
 }
 

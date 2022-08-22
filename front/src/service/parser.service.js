@@ -1,6 +1,6 @@
 import {api} from "boot/axios";
-import {API_POINT} from '../config/appconfig'
-import authHeader from '../service/auth/auth-header';
+import {API_POINT} from 'src/config/appconfig'
+import authHeader from 'src/service/auth/auth-header'
 
 
 class ParserService {

@@ -65,6 +65,8 @@ import {useMeta, useQuasar} from "quasar"
 import ParserService from "src/service/parser.service"
 import {useUserStore} from "stores/user"
 import {useRouter} from 'vue-router'
+import { Cookies } from 'quasar'
+
 
 export default defineComponent({
   name: 'ParserPage',
@@ -74,7 +76,8 @@ export default defineComponent({
     const $router = useRouter()
 
     onMounted(() => {
-      if (!store.user) {
+      console.log(Cookies.get('user'))
+      if (!Cookies.has('user')) {
         $router.push('/office/login');
       }
     })

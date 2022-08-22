@@ -20,10 +20,10 @@
           <span class="text-orange-3">v</span>.tech <span class="text-weight-thin text-caption">{ dev blog }</span>
         </q-toolbar-title>
         <div class="q-gutter-xs">
-          <q-btn v-if="!store.user" color="deep-orange" icon="login" label="вход в лк" size="sm" to="/office/login"/>
-          <q-btn v-if="store.user" color="deep-orange" icon="logout" label="выход из лк" size="sm" to="/office/logout"/>
-          <q-btn v-if="store.user" color="light-blue" icon="account_circle" size="sm" square to="/office/id"/>
-          <q-btn v-if="!store.user" color="green" icon="add" label="рег в лк" size="sm" to="/office/register"/>
+          <q-btn v-if="!store.isAuth" color="deep-orange" icon="login" label="вход в лк" size="sm" to="/office/login"/>
+          <q-btn v-if="store.isAuth" color="deep-orange" icon="logout" label="выход из лк" size="sm" to="/office/logout"/>
+          <q-btn v-if="store.isAuth" color="light-blue" icon="account_circle" size="sm" square to="/office/id"/>
+          <q-btn v-if="!store.isAuth" color="green" icon="add" label="рег в лк" size="sm" to="/office/register"/>
         </div>
       </q-toolbar>
     </q-header>
@@ -69,6 +69,7 @@ import EssentialLink from 'components/EssentialLink.vue'
 import packageInfo from "../../package.json"
 import {useMeta} from "quasar"
 import {useUserStore} from "stores/user"
+import { Cookies } from 'quasar'
 
 const linksList = [
   {
@@ -109,6 +110,14 @@ const projects = [
 
 export default defineComponent({
   name: 'MainLayout',
+  async preFetch({ssrContext, store}) {
+    const cookies = process.env.SERVER
+      ? Cookies.parseSSR(ssrContext)
+      : Cookies // otherwise we're on client
+    const Mystore = useUserStore(store)
+    Mystore.isAuth = cookies.has('user')
+
+  },
 
   components: {
     EssentialLink
@@ -138,7 +147,7 @@ export default defineComponent({
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
       version: packageInfo.version,
-      store
+      store,
     }
   }
 })

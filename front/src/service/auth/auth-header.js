@@ -1,8 +1,8 @@
-import {useUserStore} from "stores/user"
+import { Cookies } from 'quasar'
+
 
 export default function authHeader() {
-  const store = useUserStore()
-  const user = JSON.parse(store.user)
+  const user = Cookies.get('user')
 
   if (user && user["jwt-token"]) {
     return {Authorization: 'Bearer ' + user["jwt-token"]}; // for Spring Boot back-end

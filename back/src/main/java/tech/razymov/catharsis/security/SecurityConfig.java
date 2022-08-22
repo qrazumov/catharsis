@@ -3,6 +3,7 @@ package tech.razymov.catharsis.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,7 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers("/api/auth/**").permitAll()
+
                 .antMatchers("/api/v1/parser").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/api/v1/posts").hasRole("USER")
+                .antMatchers(HttpMethod.PATCH, "/api/v1/posts").hasRole("USER")
                 .antMatchers("/api/user/**").hasRole("USER")
                 .and()
                 .userDetailsService(uds)

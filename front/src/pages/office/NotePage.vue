@@ -21,6 +21,8 @@ import {useQuasar} from 'quasar'
 import PostService from "src/service/post.service"
 import NotesTmpl from "components/office/NotesTmpl"
 import lodash from 'lodash'
+import { Cookies } from 'quasar'
+import {useRouter} from "vue-router"
 
 
 export default defineComponent({
@@ -29,6 +31,14 @@ export default defineComponent({
     NotesTmpl
   },
   setup() {
+
+    const $router = useRouter()
+
+    onMounted(() => {
+      if (!Cookies.has('user')) {
+        $router.push('/office/login');
+      }
+    })
 
     const handleChangeName = (s) => {
       name.value = s

@@ -67,6 +67,7 @@ export default defineComponent({
               icon: 'done',
               message: 'Вы вошли в лк'
             })
+
             $router.push('/office/id')
           },
           (error) => {

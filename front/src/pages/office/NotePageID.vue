@@ -17,11 +17,11 @@
 </template>
 <script>
 import {defineComponent, onMounted, ref} from 'vue'
-import {useQuasar} from 'quasar'
+import {Cookies, useQuasar} from 'quasar'
 import PostService from "src/service/post.service"
 import NotesTmpl from "components/office/NotesTmpl"
 import lodash from 'lodash'
-import {useRoute} from 'vue-router'
+import {useRouter, useRoute} from "vue-router"
 
 
 export default defineComponent({
@@ -30,6 +30,15 @@ export default defineComponent({
     NotesTmpl
   },
   setup() {
+
+    const $router = useRouter()
+
+    onMounted(() => {
+      console.log(Cookies.get('user'))
+      if (!Cookies.has('user')) {
+        $router.push('/office/login');
+      }
+    })
 
     const handleChangeName = (s) => {
       name.value = s

@@ -14,16 +14,15 @@
           <span class="text-deep-orange-10">r</span>
           <span class="text-orange-3">a</span>
           <span class="text-green-3">z</span>
-          <span class="text-cyan-3">y</span>
+          <span class="text-cyan-3">u</span>
           <span class="text-light-blue-3">m</span>
           <span class="text-deep-purple-3">o</span>
           <span class="text-orange-3">v</span>.tech <span class="text-weight-thin text-caption">{ dev blog }</span>
         </q-toolbar-title>
         <div class="q-gutter-xs">
-          <q-btn v-if="!store.isAuth" color="deep-orange" icon="login" label="вход в лк" size="sm" to="/office/login"/>
-          <q-btn v-if="store.isAuth" color="deep-orange" icon="logout" label="выход из лк" size="sm" to="/office/logout"/>
+          <q-btn v-if="!store.isAuth" icon="login" label="вход в лк" size="sm" to="/office/login"/>
+          <q-btn v-if="store.isAuth" icon="logout" label="выход из лк" size="sm" to="/office/logout"/>
           <q-btn v-if="store.isAuth" color="light-blue" icon="account_circle" size="sm" square to="/office/id"/>
-          <q-btn v-if="!store.isAuth" color="green" icon="add" label="рег в лк" size="sm" to="/office/register"/>
         </div>
       </q-toolbar>
     </q-header>
@@ -74,7 +73,7 @@ import { Cookies } from 'quasar'
 const linksList = [
   {
     title: 'index',
-    caption: 'razymov.tech',
+    caption: 'razumov.tech',
     icon: 'exposure_zero',
     link: '/'
   },
@@ -89,7 +88,6 @@ const linksList = [
     caption: 'map site',
     icon: 'menu_book',
     link: '/map',
-    seolink: true
   },
   {
     title: 'about me',
@@ -100,10 +98,10 @@ const linksList = [
 ]
 const projects = [
   {
-    title: 'парсер',
-    caption: 'парсер средних цен',
+    title: 'проект 0',
+    caption: 'в разработке...',
     icon: 'code',
-    link: '/project/parser'
+    link: '/'
   }
 
 ]
@@ -126,15 +124,15 @@ export default defineComponent({
   setup() {
     const leftDrawerOpen = ref(false)
     const metaData = {
-      title: 'razymov.tech',
+      title: 'razumov.tech',
       titleTemplate: title => `${title} { dev blog }`,
       meta: {
-        description: {name: 'description', content: 'razymov.tech { dev blog }'},
+        description: {name: 'description', content: 'razumov.tech { dev blog }'},
         keywords: {name: 'keywords', content: 'java, java spring, dev, front, docker'},
         equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
       link: {
-        image_x_icon: {rel: 'shortcut icon', href: 'http://razymov.tech/favicon.ico', type: 'image/x-icon'}
+        image_x_icon: {rel: 'shortcut icon', href: 'http://razumov.tech/favicon.ico', type: 'image/x-icon'}
       },
     }
     useMeta(metaData)

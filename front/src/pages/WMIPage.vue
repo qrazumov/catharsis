@@ -2,7 +2,7 @@
   <q-page class="flex-start q-pa-md">
     <div class="q-pa-md q-gutter-sm row justify-center">
       <q-card class="my-card col-md-4 col-lg-3 col-xs-12" flat square>
-        <img src="http://razymov.tech:81/wl/?id=yq8q5lBEQBT2PbQAq6CO0m3gUaHQvSQ6&fmode=open">
+        <img src="http://razumov.tech:2052/?explorer/share/file&hash=c598lQJIWzmcc1hiG5xVEDNK0n2gIe6609Q6CvAHeHu7cqFrAYubj3lpAq5yyxsiHg&name=/ami.jpg">
 
         <q-card-section>
           <div class="text-h6">Разумов Александр, программист</div>
@@ -47,7 +47,7 @@ export default defineComponent({
       // sets document title
       title: 'Who am i',
       // optional; sets final title as "Index Page - My Website", useful for multiple level meta
-      titleTemplate: title => `${title} - razymov.tech`,
+      titleTemplate: title => `${title} - rauymov.tech`,
 
       // meta tags
       meta: {

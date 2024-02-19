@@ -36,7 +36,7 @@ export default defineComponent({
     items.value = myStore.getData
     useMeta({
       title: "category",
-      titleTemplate: title => `${title} - razymov.tech`,
+      titleTemplate: title => `${title} - razumov.tech`,
       meta: {
         description: {name: 'description', content: "category"},
         keywords: {name: 'keywords', content: "category"},

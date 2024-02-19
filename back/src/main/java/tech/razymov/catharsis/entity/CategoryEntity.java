@@ -1,9 +1,11 @@
 package tech.razymov.catharsis.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -18,5 +20,6 @@ public class CategoryEntity {
     @JsonIgnoreProperties({"category"})
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<PostEntity> posts;
-    private Date createdAt = new Date();
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    private LocalDateTime createdAt;
 }

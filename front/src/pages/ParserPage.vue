@@ -85,7 +85,7 @@ export default defineComponent({
     const store = useUserStore()
     useMeta({
       title: "parser project",
-      titleTemplate: title => `${title} - razymov.tech`,
+      titleTemplate: title => `${title} - razumov.tech`,
       meta: {
         description: {name: 'description', content: "parser"},
         keywords: {name: 'keywords', content: "parser"},

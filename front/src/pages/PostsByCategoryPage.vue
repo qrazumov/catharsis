@@ -42,9 +42,10 @@ export default defineComponent({
     const $q = useQuasar()
     const notify = (useQuasar) => {
       useQuasar.notify({
+        progress: true,
         color: 'negative',
         position: 'top',
-        message: 'Loading failed',
+        message: 'Ошибка загрузки',
         icon: 'report_problem'
       })
     }
@@ -72,7 +73,7 @@ export default defineComponent({
     if (items.value.length !== 0)
       useMeta({
         title: items.value[0].category.name,
-        titleTemplate: title => `${title} - razymov.tech`,
+        titleTemplate: title => `${title} - razumov.tech`,
         meta: {
           description: {name: 'description', content: items.value[0].category.name},
           keywords: {name: 'keywords', content: items.value[0].category.name},

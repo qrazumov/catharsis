@@ -69,9 +69,10 @@ export default defineComponent({
 
     const notify = (useQuasar) => {
       useQuasar.notify({
+        progress: true,
         color: 'negative',
         position: 'top',
-        message: 'Loading failed',
+        message: 'Ошибка загрузки',
         icon: 'report_problem'
       })
     }

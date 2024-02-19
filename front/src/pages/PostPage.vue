@@ -55,7 +55,7 @@ export default defineComponent({
 
     useMeta({
       title: title.value,
-      titleTemplate: title => `${title} - razymov.tech`,
+      titleTemplate: title => `${title} - razumov.tech`,
       meta: {
         description: {name: 'description', content: title.value},
         keywords: {name: 'keywords', content: title.value},

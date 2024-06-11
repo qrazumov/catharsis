@@ -132,7 +132,7 @@ export default defineComponent({
         equiv: {'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'},
       },
       link: {
-        image_x_icon: {rel: 'shortcut icon', href: 'http://razumov.tech/favicon.ico', type: 'image/x-icon'}
+        image_x_icon: {rel: 'shortcut icon', href: 'http://razumov.tech/favicon.svg', type: 'image/x-icon'}
       },
     }
     useMeta(metaData)
